@@ -1,0 +1,83 @@
+<section class="content-header">
+    <h1>
+        {{ 'post.category.categories' | translate }}
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a ui-sref="main.post-category-create" class="btn btn-primary"><i class="fa fa-plus"></i> {{
+                    'post.category.add_a_category'
+                    | translate }}</a>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'post.category.categories' | translate }}</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div ui-tree="listCtrl.categoryTree" ng-if="listCtrl.categories">
+                        <ol ui-tree-nodes="" ng-model="listCtrl.categories">
+                            <li ng-repeat="node in listCtrl.categories"
+                                collapsed="{{ node.lft+1 !== node.rgt > 0 ? 'true' : 'false'}}"
+                                ui-tree-node
+                                ng-include="'nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="overlay" ng-show="!listCtrl.categories">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+                <!-- /.overlay -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- ./col -->
+    </div>
+</section>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div class="tree-node">
+        <div class="pull-left tree-handle">
+            <span class="glyphicon glyphicon-list"></span>
+        </div>
+        <div class="tree-node-content" data-nodrag>
+            <a ng-show="node.lft+1 !== node.rgt" class="btn handletools expand btn-xs" data-nodrag
+               ng-click="toggle(this);listCtrl.getChildren(node)">
+                <span class="fa fa-fw" ng-class="{'fa-plus-square-o': collapsed, 'fa-minus-square-o': !collapsed}">
+                </span>
+            </a>
+            {{ node.name }}
+            <div class="tree-node-tool pull-right">
+                <a class="btn btn-primary" data-nodrag href="posts/categories/{{ node.id }}/edit"
+                   style=""><span class="fa fa-edit"></span> {{ 'button.edit' | translate }}</a>
+                <a class="btn btn-danger" data-nodrag ng-click="delete(this)"><span
+                        class="fa fa-remove"></span> {{ 'button.remove' | translate }}</a>
+            </div>
+
+        </div>
+    </div>
+
+    <ol ui-tree-nodes="" ng-model="node.children" ng-if="!collapsed" ng-class="{hidden: collapsed}">
+        <li ng-if="listCtrl.getChildrenLoading[node.id]"><i class="fa fa-refresh fa-spin"></i></li>
+        <li ng-repeat="node in node.children" collapsed="{{ node.lft+1 !== node.rgt > 0 ? 'true' : 'false'}}"
+            ui-tree-node
+            ng-include="'nodes_renderer.html'">
+        </li>
+        <li ng-if="!node.children" ng-init="node.children = []">
+        </li>
+    </ol>
+</script>

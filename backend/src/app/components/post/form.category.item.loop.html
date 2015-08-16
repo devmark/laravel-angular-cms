@@ -1,0 +1,10 @@
+<div class="checkbox">
+    <label>
+        <input value="{{ item.id }}" type="checkbox" ng-checked="">
+{{ item | switch_lang:'name':currentLanguage.language_code }}
+</label>
+</div>
+<ul ng-if="item.children.length > 0">
+    <li ng-repeat="item in item.children"
+        ng-include="'scripts/components/post/form.category.item.loop.html'"></li>
+</ul>

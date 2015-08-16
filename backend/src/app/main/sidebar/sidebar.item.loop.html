@@ -1,0 +1,17 @@
+<a ng-if="item.children.length" ng-click="sidebarCtrl.select(item)">
+    <i ng-if="item.iconClasses" class="{{item.iconClasses}}"></i><span>{{item.label}}</span> <i
+        class="fa fa-angle-left pull-right"></i>
+</a>
+<a ng-if="!item.children.length" ng-click="sidebarCtrl.select(item)"
+   ui-sref="{{item.state ? item.state : 'main.index'}}">
+    <i ng-if="item.iconClasses" class="{{item.iconClasses}}"></i><span>{{item.label}}</span>
+</a>
+<ul ng-if="item.children.length" slide-out-nav="item.open" class="treeview-menu"
+    ng-class="{'menu-open': item.open}">
+    <li ng-repeat="item in item.children"
+        ng-class="{ treeview: (item.children!==undefined),
+                      active:(item.children!==undefined) && item.open,
+                        open: (item.children!==undefined) && item.open }"
+        ng-include="'app/main/sidebar/sidebar.item.loop.html'"
+            ></li>
+</ul>

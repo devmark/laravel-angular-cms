@@ -1,0 +1,241 @@
+<section class="content-header">
+    <h1>
+        <span ng-if="formCtrl.post.id !== ''">{{ 'post.edit_post' | translate }}</span>
+        <span ng-if="formCtrl.post.id === ''">{{ 'post.add_a_post' | translate }}</span>
+        <small>{{ formCtrl.post.title }}</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <form name="formCtrl.postForm">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+
+                    <button type="submit"
+                            ng-disabled="formCtrl.postForm.$invalid || formCtrl.deleteLoading || formCtrl.saveLoading"
+                            ng-click="formCtrl.save()"
+                            class="btn btn-primary">
+                        <span ng-if="formCtrl.saveLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.saveLoading"><i class="fa fa-save"></i> {{
+                            'button.save' | translate }}</span>
+                    </button>
+
+                    <button type="button" class="btn btn-default" ng-click="$location.path('posts')"><i
+                            class="fa fa-reply"></i> {{ 'button.go_back' |
+                        translate }}
+                    </button>
+
+                    <button type="submit" ng-click="formCtrl.saveAndExit()"
+                            ng-disabled="formCtrl.postForm.$invalid || formCtrl.deleteLoading || formCtrl.saveLoading"
+                            class="btn btn-primary">
+                        <span ng-if="formCtrl.saveLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.saveLoading"><i class="fa fa-save"></i> {{
+                            'button.save_exit' | translate }}</span>
+                    </button>
+                    <button ng-if="formCtrl.post.id !== ''" type="button"
+                            ng-disabled="formCtrl.deleteLoading || formCtrl.saveLoading"
+                            ng-click="formCtrl.delete()" class="btn btn-danger">
+                        <span ng-if="formCtrl.deleteLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.deleteLoading"><i class="fa fa-save"></i> {{
+                            'button.delete' | translate }}</span>
+                    </button>
+
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <br/>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="box box-solid">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <input id="title" type="text" class="form-control"
+                                   placeholder="{{ 'global.title' | translate }}"
+                                   required=""
+                                   ng-model="formCtrl.post.title">
+                        </div>
+                        <div class="form-group">
+                            <div text-angular id="content" placeholder="{{ 'global.content' | translate }}"
+                                 ng-model="formCtrl.post.content"></div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ 'post.category.categories' | translate }} </h3>
+
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool"
+                                    ng-click="$location.path('posts/categories/create')"><i
+                                    class="fa fa-plus"></i> {{ 'button.add' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <ui-select multiple ng-model="formCtrl.post.categories">
+                            <ui-select-match placeholder="">{{$item.name}}</ui-select-match>
+                            <ui-select-choices
+                                    repeat="category in formCtrl.categories"
+                                    refresh="formCtrl.refreshCategory($select.search)"
+                                    refresh-delay="0">
+                                <div ng-bind-html="category.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="overlay" ng-show="!formCtrl.post.categories">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <!-- /.overlay -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+
+                <div class="box box-solid">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="slug" class="control-label">{{ 'global.slug' | translate }}</label>
+
+                            <div class="input-group">
+                                <input id="slug" type="text" class="form-control" required=""
+                                       ng-model="formCtrl.post.slug">
+
+                                <div class="input-group-btn">
+                                    <button type="button"
+                                            ng-disabled="formCtrl.generateSlugLoading || !formCtrl.post.title"
+                                            ng-click="formCtrl.generateSlug()" class="btn btn-default">{{
+                                        'button.generate' | translate }}
+                                    </button>
+                                </div>
+                                <!-- /btn-group -->
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"
+                                   for="published_at">{{ 'post.published_on' | translate }}</label>
+
+                            <div class="input-group">
+                                <input id="published_at" type="text" class="form-control"
+                                       ng-model="formCtrl.form.publishedDate"
+                                       datepicker-popup="yyyy-MM-dd"
+                                       max-date="formCtrl.dateOptions.maxDate"
+                                       ng-click="formCtrl.open($event)"
+                                       is-open="formCtrl.opened" datepicker-options="formCtrl.dateOptions"
+                                       ng-required="true" close-text="Close" readonly/>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="formCtrl.open($event)" class="btn btn-default"><i
+                                            class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                            <a ng-init="formCtrl.showPublishedTime=false" href=""
+                               ng-click="formCtrl.showPublishedTime = !formCtrl.showPublishedTime">
+                                Different Time?
+                            </a>
+
+                            <div ng-if="formCtrl.showPublishedTime">
+                                <timepicker ng-model="formCtrl.form.publishedTime" hour-step="1"
+                                            minute-step="15" show-meridian="true"></timepicker>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="status">{{ 'global.status' | translate }}</label>
+
+                            <div class="radio">
+                                <label>
+                                    <input name="status" ng-model="formCtrl.post.status" value="published" type="radio">
+                                    Published
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input name="status" ng-model="formCtrl.post.status" value="draft" type="radio">
+                                    Draft
+                                </label>
+                            </div>
+
+                            <div class="radio">
+                                <label>
+                                    <input name="status" ng-model="formCtrl.post.status" value="trash" type="radio">
+                                    Trash
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"
+                                   for="visibility">{{ 'post.visibility' | translate }}</label>
+
+                            <div class="radio">
+                                <label>
+                                    <input name="visibility" ng-model="formCtrl.post.visibility" value="public"
+                                           type="radio">
+                                    Public
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input name="visibility" ng-model="formCtrl.post.visibility" value="private"
+                                           type="radio">
+                                    Private
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="tags" class="control-label">{{ 'global.tags' | translate }}</label>
+
+                            <ui-select id="tags" multiple tagging tagging-label="false" ng-model="formCtrl.post.tags"
+                                       theme="bootstrap" style="width: 100%;" title="">
+                                <ui-select-match placeholder="">{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="tag in [] | filter:$select.search">
+                                    {{ tag }}
+                                </ui-select-choices>
+                            </ui-select>
+
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </form>
+    <!-- /form -->
+
+</section>
