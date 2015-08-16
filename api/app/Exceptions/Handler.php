@@ -46,12 +46,12 @@ class Handler extends ExceptionHandler
             'message' => $e->getMessage()
         ];
 
-//        // If the app is in debug mode
-//        if (config('app.debug')) {
-//            // Add the exception class name and stack trace to response
-//            $response['exception'] = get_class($e); // Reflection might be better here
-//            $response['trace'] = $e->getTrace();
-//        }
+        // If the app is in debug mode
+        if (config('app.debug')) {
+            // Add the exception class name and stack trace to response
+            $response['exception'] = get_class($e); // Reflection might be better here
+            $response['trace'] = $e->getTrace();
+        }
 
         // Default response of 400
         $status = 400;

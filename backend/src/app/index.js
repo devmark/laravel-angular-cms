@@ -214,7 +214,7 @@
             // Local storage module init
             //================================================
             localStorageServiceProvider
-                .setPrefix('yoovcms')
+                .setPrefix('emcoocms')
                 .setStorageType('localStorage')
                 .setNotify(true, true);
         })

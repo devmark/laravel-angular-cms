@@ -10,7 +10,7 @@
   - output JSON or others
 * Angular 1.4 for Backend
   - Include AdminLTE template
-  - Include ui-router, restangular etc...
+  - Include ui-router, Restangular etc...
 * Independent Laravel, Angular
 * Backend
 	* (TODO)User management
