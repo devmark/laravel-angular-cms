@@ -27,9 +27,8 @@
 * [Step 3: Init Backend](#step3)
 * [Step 4: Production](#step4)
 * [Step 5: Start](#step5)
+
 -----
-
-
 <a name="step1"></a>
 ### Step 1: Get the code
 
@@ -99,7 +98,6 @@ Soon
 
 
 -----
-
 ## API Detail:
 
 
