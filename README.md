@@ -1,14 +1,16 @@
 # Laravel Angular CMS Starter Site
 
+![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/post-list.png)
+
 ## Features:
 * Laravel 5.1 for API
- ⋅⋅⋅ Include Json Auth Token
- ⋅⋅⋅ Include Data Transformer
- ⋅⋅⋅ Include API Data Exception
- ⋅⋅⋅ output JSON or others
+  - Include Json Auth Token
+  - Include Data Transformer
+  - Include API Data Exception
+  - output JSON or others
 * Angular 1.4 for Backend
- ⋅⋅⋅ Include AdminLTE template
- ⋅⋅⋅ Include ui-router, restangular etc...
+  - Include AdminLTE template
+  - Include ui-router, restangular etc...
 * Independent Laravel, Angular
 * Backend
 	* (TODO)User management
@@ -91,6 +93,9 @@ Soon
 -----
 ## Screenshot:
 
+![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/post-list.png)
+![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/post-category-list.png)
+![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/media-list.png)
 
 
 -----
@@ -98,16 +103,20 @@ Soon
 ## API Detail:
 
 
+Soon
 
 ### Add Exception
+Soon
 
 ### Add Transformer
+Soon
 
 ### Config JWT
+Soon
 
-#### Backend
+## Backend Detail:
 1. run `gulp` in `backend` directory
 2. copy `backend/dist` all files to `api/public/assets-backend`
 
-#### Frontend
+## Frontend Detail:
 1. You can move all frontend file to `api/public`
