@@ -32,6 +32,7 @@
 <a name="step1"></a>
 ### Step 1: Get the code
 
+`https://github.com/devmark/laravel-angular-cms/archive/master.zip`
 
 -----
 <a name="step2"></a>
