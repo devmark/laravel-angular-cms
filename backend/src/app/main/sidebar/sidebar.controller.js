@@ -22,6 +22,24 @@
             iconClasses: 'fa fa-home',
             url: '/admin/'
         }, {
+            label: 'User',
+            iconClasses: 'fa fa-users',
+            children: [
+                {
+                    label: 'All Users',
+                    iconClasses: 'fa fa-circle-o',
+                    state: 'main.user-list'
+                }, {
+                    label: 'Add new',
+                    iconClasses: 'fa fa-circle-o',
+                    state: 'main.user-create'
+                }, {
+                    label: 'Roles',
+                    iconClasses: 'fa fa-circle-o',
+                    state: 'main.role-list'
+                }
+            ]
+        }, {
             label: 'Post',
             iconClasses: 'fa fa-tags',
             children: [

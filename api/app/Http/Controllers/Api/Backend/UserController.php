@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Api\Backend;
 
-use Input, Request, Validator, App, AdminAuth, Route;
+use Input, Request, Validator, App, UserAuth, Route;
 
-class AdminController extends ApiController
+class UserController extends ApiController
 {
 
     public function __construct()
@@ -17,7 +17,7 @@ class AdminController extends ApiController
      */
     public function index()
     {
-        return App::make('App\Http\Controllers\Api\AdminController')->show(AdminAuth::user()->id);
+        return App::make('App\Http\Controllers\Api\UserController')->show(UserAuth::user()->id);
     }
 
     /**
@@ -36,7 +36,7 @@ class AdminController extends ApiController
         }
         Request::merge($input);
 
-        return App::make('App\Http\Controllers\Api\AdminController')->update(AdminAuth::user()->id);
+        return App::make('App\Http\Controllers\Api\UserController')->update(UserAuth::user()->id);
 
     }
 }

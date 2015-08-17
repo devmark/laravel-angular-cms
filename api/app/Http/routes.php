@@ -3,7 +3,12 @@
 Validator::resolver(function ($translator, $data, $rules, $messages) {
     return new App\Validation\CustomValidation($translator, $data, $rules, $messages);
 });
+Route::get('/ggg', function () {
 
+
+    $role = App\Models\Role::first();
+    return $role->perms->toArray();
+});
 Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'admin'], function () {
@@ -22,8 +27,10 @@ Route::group(['prefix' => 'api'], function () {
 
             Route::post('posts/categories/{id}/move', ['uses' => 'Api\PostCategoryController@move']);
             Route::resource('posts/categories', 'Api\PostCategoryController', ['except' => ['create', 'edit']]);
-            Route::get('me', 'Api\Backend\AdminController@index');
-            Route::resource('admins', 'Api\AdminController', ['except' => ['create', 'edit']]);
+            Route::get('me', 'Api\Backend\UserController@index');
+            Route::resource('users', 'Api\UserController', ['except' => ['create', 'edit']]);
+            Route::resource('roles', 'Api\RoleController', ['except' => ['create', 'edit']]);
+            Route::resource('permissions', 'Api\PermissionController', ['only' => ['index', 'show']]);
 
             Route::resource('posts', 'Api\PostController', ['except' => ['create', 'edit']]);
 

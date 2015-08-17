@@ -1,0 +1,189 @@
+<!--
+  ~ This file is part of EMCOO TEAM PROJECT.
+  ~
+  ~  (c) EMCOO TEAM
+  ~  (c) DevMark <mark@emcoo.com>
+  ~
+  ~  For the full copyright and license information, please view http://emcoo.com/
+  ~
+  ~
+  -->
+
+<section class="content-header">
+    <h1>
+        <span ng-if="formCtrl.user.id !== ''">{{ 'user.edit_user' | translate }}</span>
+        <span ng-if="formCtrl.user.id === ''">{{ 'user.add_a_user' | translate }}</span>
+        <small>{{ formCtrl.user.title }}</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <form name="formCtrl.userForm">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+
+                    <button type="submit"
+                            ng-disabled="formCtrl.userForm.$invalid || formCtrl.deleteLoading || formCtrl.saveLoading"
+                            ng-click="formCtrl.save()"
+                            class="btn btn-primary">
+                        <span ng-if="formCtrl.saveLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.saveLoading"><i class="fa fa-save"></i> {{
+                            'button.save' | translate }}</span>
+                    </button>
+
+                    <button type="button" class="btn btn-default" ng-click="$location.path('users')"><i
+                            class="fa fa-reply"></i> {{ 'button.go_back' |
+                        translate }}
+                    </button>
+
+                    <button type="submit" ng-click="formCtrl.saveAndExit()"
+                            ng-disabled="formCtrl.userForm.$invalid || formCtrl.deleteLoading || formCtrl.saveLoading"
+                            class="btn btn-primary">
+                        <span ng-if="formCtrl.saveLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.saveLoading"><i class="fa fa-save"></i> {{
+                            'button.save_exit' | translate }}</span>
+                    </button>
+                    <button ng-if="formCtrl.user.id !== ''" type="button"
+                            ng-disabled="formCtrl.deleteLoading || formCtrl.saveLoading"
+                            ng-click="formCtrl.delete()" class="btn btn-danger">
+                        <span ng-if="formCtrl.deleteLoading"><i class="fa fa-spin fa-spinner"></i></span>
+                        <span ng-if="!formCtrl.deleteLoading"><i class="fa fa-save"></i> {{
+                            'button.delete' | translate }}</span>
+                    </button>
+
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <br/>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="box box-solid">
+                    <div class="box-body">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="lastname" class="control-label">{{ 'user.lastname' | translate }}</label>
+
+                                <div class="form-group">
+                                    <input id="lastname" type="text" class="form-control"
+                                           placeholder="{{ 'user.lastname' | translate }}"
+                                           required=""
+                                           ng-model="formCtrl.user.lastname">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="firstname" class="control-label">{{ 'user.firstname' | translate }}</label>
+
+                                <div class="form-group">
+                                    <input id="firstname" type="text" class="form-control"
+                                           placeholder="{{ 'user.firstname' | translate }}"
+                                           required=""
+                                           ng-model="formCtrl.user.firstname">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="email" class="control-label">{{ 'user.email' | translate }}</label>
+                            <input id="email" type="email" class="form-control"
+                                   placeholder="{{ 'user.email' | translate }}"
+                                   required="" ng-required=""
+                                   ng-model="formCtrl.user.email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="control-label">{{ 'user.password' | translate }}</label>
+                            <input id="password" type="password" class="form-control"
+                                   placeholder="{{ 'user.password' | translate }}"
+                                   ng-min="8" ng-required=""
+                                   ng-model="formCtrl.user.password">
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ 'user.roles' | translate }} </h3>
+
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" ui-sref="main.role-list"><i
+                                    class="fa fa-plus"></i> {{ 'button.add' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <ui-select multiple ng-model="formCtrl.user.roles">
+                            <ui-select-match placeholder="">{{ $item.display_name }}</ui-select-match>
+                            <ui-select-choices
+                                    repeat="role in formCtrl.roles"
+                                    refresh="formCtrl.refreshRole($select.search)"
+                                    refresh-delay="0">
+                                <div ng-bind-html="role.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="overlay" ng-show="!formCtrl.user.roles">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <!-- /.overlay -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+
+                <div class="box box-solid">
+                    <div class="box-body">
+
+                        <div class="form-group">
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="formCtrl.user.active"> {{ 'global.status' |
+                                    translate }}
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label"
+                                   for="created_at">{{ 'global.created_at' | translate }}</label>
+
+                            <div id="created_at" class="input-group">
+                                {{ formCtrl.user.created_at | amCalendar}}
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </form>
+    <!-- /form -->
+
+</section>

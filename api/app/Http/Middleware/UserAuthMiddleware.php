@@ -8,10 +8,10 @@ use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
-use App\Models\Admin;
-use AdminAuth;
+use App\Models\User;
+use UserAuth;
 
-class AdminAuthMiddleware
+class UserAuthMiddleware
 {
     /**
      * @var \Tymon\JWTAuth\Facades\JWT
@@ -46,9 +46,9 @@ class AdminAuthMiddleware
         try {
             $payload = $this->jwt->decode($token);
 
-            if ($payload['aud'] == 'admin') {
-                $user = Admin::find($payload['sub']);
-                AdminAuth::loginUsingId($user->id);
+            if ($payload['aud'] == 'user') {
+                $user = User::find($payload['sub']);
+                UserAuth::loginUsingId($user->id);
             }
         } catch (TokenExpiredException $e) {
             return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);

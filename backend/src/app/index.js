@@ -15,6 +15,7 @@
     angular.module('backend', [
 
         'authModule',
+        'userModule',
         'postModule',
         'mediaModule',
         'mediaCategoryModule',
@@ -38,6 +39,7 @@
         'ui.bootstrap.datetimepicker',
         'ui.tree',
         'ui.select',
+        'checklist-model',
 
         'textAngular',
         'angular.filter',

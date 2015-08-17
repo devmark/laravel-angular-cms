@@ -109,7 +109,7 @@
 
                                 <div class="form-group">
                                     <div class="btn-group">
-                                        <button ng-disabled="countSelectedRows <= 0" class="btn btn-default-sm"
+                                        <button ng-disabled="listCtrl.countSelectedRows <= 0" class="btn btn-default-sm"
                                                 ng-really-message="{{ 'media.delete_before_msg' | translate }}"
                                                 ng-really-click="listCtrl.bulkRemove()"><i
                                                 class="fa fa-trash-o"></i> Delete selected
@@ -121,7 +121,7 @@
 
                                 <div class="form-group">
                                     <div class="btn-group">
-                                        <button ng-disabled="countSelectedRows <= 0" class="btn btn-default"
+                                        <button ng-disabled="listCtrl.countSelectedRows <= 0" class="btn btn-default"
                                                 ng-click="listCtrl.bulkMove()"><i
                                                 class="fa fa-send"></i> Move selected to
                                         </button>
@@ -146,7 +146,8 @@
                             <thead>
                             <tr>
                                 <th width="5%">
-                                    <st-select-all all="listCtrl.rowCollection" count-selected-rows="countSelectedRows"
+                                    <st-select-all all="listCtrl.rowCollection"
+                                                   count-selected-rows="listCtrl.countSelectedRows"
                                                    ng-model="listCtrl.isAllSelected"></st-select-all>
                                 </th>
                                 <th></th>

@@ -210,7 +210,7 @@ return [
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
 
 
-        'AdminAuth'  => '\App\Facades\AdminAuth',
+        'UserAuth'  => '\App\Facades\UserAuth',
     ],
 
 ];

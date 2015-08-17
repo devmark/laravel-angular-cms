@@ -27,14 +27,14 @@ class MultiAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Auth::extend('adminEloquent', function ($app) {
+        Auth::extend('userEloquent', function ($app) {
             // you can use Config::get() to retrieve the model class name from config file
-            $myProvider = new EloquentUserProvider($app['hash'], '\App\Models\Admin');
+            $myProvider = new EloquentUserProvider($app['hash'], '\App\Models\User');
 
             return new Guard($myProvider, $app['session.store']);
         });
-        $this->app->singleton('auth.driver_admin', function ($app) {
-            return Auth::driver('adminEloquent');
+        $this->app->singleton('auth.driver_user', function ($app) {
+            return Auth::driver('userEloquent');
         });
     }
 }

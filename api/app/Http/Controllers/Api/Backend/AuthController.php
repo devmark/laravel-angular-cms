@@ -3,7 +3,7 @@
 use Auth;
 use Input, Response, Validator;
 
-use AdminAuth;
+use UserAuth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -42,8 +42,8 @@ class AuthController extends ApiController
         }
 
         // Try to login
-        if (AdminAuth::once($credentials)) {
-            $payload = app('tymon.jwt.payload.factory')->sub(AdminAuth::user()->id)->aud('admin')->make();
+        if (UserAuth::once($credentials)) {
+            $payload = app('tymon.jwt.payload.factory')->sub(UserAuth::user()->id)->aud('user')->make();
             $token = JWTAuth::encode($payload);
 
             return response()->return(['token' => $token->get()]);

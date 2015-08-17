@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "zizaco/entrust": "dev-laravel-5",
+        "zizaco/entrust": "~1.4.1",
         "tymon/jwt-auth": "0.5.*",
         "barryvdh/laravel-cors": "0.7.x",
         "baum/baum": "dev-master",

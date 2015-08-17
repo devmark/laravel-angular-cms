@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class AdminAuth extends Facade
+class UserAuth extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -11,6 +11,6 @@ class AdminAuth extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'auth.driver_admin';
+        return 'auth.driver_user';
     }
 }

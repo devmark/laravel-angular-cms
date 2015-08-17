@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateAdminTable extends Migration
+class CreateUserTable extends Migration
 {
 
     /**
@@ -13,7 +13,7 @@ class CreateAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('lastname')->nullable();
@@ -35,7 +35,7 @@ class CreateAdminTable extends Migration
      */
     public function down()
     {
-        Schema::drop('admin');
+        Schema::drop('user');
     }
 
 }

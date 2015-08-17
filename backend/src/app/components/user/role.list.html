@@ -1,6 +1,17 @@
+<!--
+  ~ This file is part of EMCOO TEAM PROJECT.
+  ~
+  ~  (c) EMCOO TEAM
+  ~  (c) DevMark <mark@emcoo.com>
+  ~
+  ~  For the full copyright and license information, please view http://emcoo.com/
+  ~
+  ~
+  -->
+
 <section class="content-header">
     <h1>
-        {{ 'post.posts' | translate }}
+        {{ 'role.roles' | translate }}
     </h1>
 </section>
 
@@ -10,8 +21,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull-right">
-                <a ui-sref="main.post-create" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'post.add_a_post'
-                    | translate }}</a>
+                <button ng-click="listCtrl.add()" class="btn btn-primary"><i class="fa fa-plus"></i> {{
+                    'role.add_a_role' | translate }}</button>
             </div>
         </div>
     </div>
@@ -21,7 +32,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'post.posts' | translate }}</h3>
+                    <h3 class="box-title">{{ 'role.roles' | translate }}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body" st-table="listCtrl.rowCollection" st-safe-src="listCtrl.rowCollection"
@@ -30,39 +41,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-inline">
-                                <div class="form-group">
 
-                                    <div class="input-group">
-                                        <input id="published_at" datepicker-popup="MM/yyyy" type="text"
-                                               class="form-control"
-                                               ng-model="listCtrl.filter.published_at"
-                                               date-disabled="disabled(date, mode)"
-                                               datepicker-mode="'month'"
-                                               is-open="listCtrl.opened"
-                                               ng-click="listCtrl.open($event)"
-                                               datepicker-options="listCtrl.dateOptions"
-                                               ng-required="true" close-text="Close" readonly/>
-                                        <span class="input-group-btn">
-                                            <button type="button" ng-click="listCtrl.open($event)"
-                                                    class="btn btn-default"><i
-                                                    class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <ui-select ng-model="listCtrl.filter.category_ids[0]">
-                                        <ui-select-match placeholder="All categories">
-                                            {{ $select.selected.name }}
-                                        </ui-select-match>
-                                        <ui-select-choices
-                                                repeat="category.id as category in listCtrl.categories track by $index"
-                                                refresh="refreshCategory($select.search)"
-                                                refresh-delay="0">
-                                            <div ng-bind-html="category.name | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" ng-model="listCtrl.filter.search"
                                            placeholder="Serach Title"/>
@@ -91,7 +70,7 @@
                         <div class="col-md-12">
                             <div class="btn-group">
                                 <button ng-disabled="listCtrl.countSelectedRows <= 0" class="btn btn-default btn-sm"
-                                        ng-really-message="{{ 'post.delete_before_msg' | translate }}"
+                                        ng-really-message="{{ 'user.delete_before_msg' | translate }}"
                                         ng-really-click="listCtrl.bulkRemove()"><i
                                         class="fa fa-trash-o"></i> Delete Selected
                                 </button>
@@ -111,9 +90,8 @@
                                                    count-selected-rows="listCtrl.countSelectedRows"
                                                    ng-model="isAllSelected"></st-select-all>
                                 </th>
-                                <th>{{ 'global.title' | translate}}</th>
-                                <th width="15%">{{ 'global.status' | translate}}</th>
-                                <th width="15%">{{ 'global.created_at' | translate }}</th>
+                                <th width="25%">{{ 'global.name' | translate}}</th>
+                                <th width="">{{ 'user.permissions' | translate}}</th>
                                 <th width="15%"></th>
                             </tr>
                             </thead>
@@ -123,23 +101,42 @@
                                 <td>
                                     <input type="checkbox" ng-checked="row.isSelected" st-select-row="row"/>
                                 </td>
-                                <td>{{ row.title }}
+                                <td>
+                                    <div class="form-group">
+                                        <label for="name" class="control-label">{{ 'role.name' | translate }}</label>
+                                        <input id="name" type="text" class="form-control"
+                                               placeholder="{{ 'role.name' | translate }}"
+                                               required=""
+                                               ng-model="row.name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="display_name" class="control-label">{{ 'role.display_name' |
+                                            translate }}</label>
+                                        <input id="display_name" type="text" class="form-control"
+                                               placeholder="{{ 'role.display_name' | translate }}"
+                                               required=""
+                                               ng-model="row.display_name">
+                                    </div>
                                 </td>
                                 <td>
-                                    {{ row.status }}
+                                    <label class="checkbox-inline" ng-repeat="permission in listCtrl.permissions">
+                                        <input type="checkbox" checklist-model="$parent.row.permissions"
+                                               checklist-value="permission.id"> {{
+                                        permission.display_name }}
+                                    </label>
                                 </td>
-                                <td>{{ row.created_at | amCalendar }}</td>
                                 <td>
                                     <div class="btn-group" dropdown>
-                                        <a href="posts/{{ row.id }}/edit" class="btn btn-primary"><i
-                                                class="fa fa-search"></i> {{ 'button.edit' | translate }}
-                                        </a>
+                                        <button ng-click="listCtrl.save(row)" class="btn btn-primary"><i
+                                                class="fa fa-save"></i> {{ 'button.save' | translate }}
+                                        </button>
                                         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
                                             <span class="caret"></span>
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a ng-click="remove(row)" href=""><i class="fa fa-times"></i> {{
+                                            <li><a ng-click="listCtrl.remove(row)" href=""><i class="fa fa-times"></i>
+                                                {{
                                                 'button.remove' | translate }}</a>
                                             </li>
                                         </ul>

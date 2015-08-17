@@ -6,13 +6,13 @@ use Response;
 use Validator;
 use Config;
 
-use App\Models\Admin;
-use App\Transformers\AdminTransformer;
+use App\Models\Permission;
+use App\Transformers\PermissionTransformer;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ResourceException;
 
-class AdminController extends ApiController
+class PermissionController extends ApiController
 {
 
     public function __construct()
@@ -22,11 +22,12 @@ class AdminController extends ApiController
 
     public function index()
     {
-        $admins = Admin::get();
 
-        $admins = $admins->simplePaginate(Input::get('limit', 50));
+        $permissions = new Permission;
 
-        return response()->paginator($admins, new AdminTransformer);
+        $permissions = $permissions->simplePaginate(Input::get('limit', 50));
+
+        return response()->paginator($permissions, new PermissionTransformer);
 
     }
 
@@ -40,13 +41,12 @@ class AdminController extends ApiController
      */
     public function show($id)
     {
-
-        $admin = Admin::find($id);
-        if (is_null($admin)) {
+        $permission = Permission::find($id);
+        if (is_null($permission)) {
             throw new NotFoundException;
         }
 
-        return response()->item($admin, new AdminTransformer);
+        return response()->item($permission, new PermissionTransformer);
 
     }
 

@@ -1,6 +1,17 @@
+<!--
+  ~ This file is part of EMCOO TEAM PROJECT.
+  ~
+  ~  (c) EMCOO TEAM
+  ~  (c) DevMark <mark@emcoo.com>
+  ~
+  ~  For the full copyright and license information, please view http://emcoo.com/
+  ~
+  ~
+  -->
+
 <section class="content-header">
     <h1>
-        {{ 'post.posts' | translate }}
+        {{ 'user.users' | translate }}
     </h1>
 </section>
 
@@ -10,7 +21,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pull-right">
-                <a ui-sref="main.post-create" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'post.add_a_post'
+                <a ui-sref="main.user-create" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'user.add_a_user'
                     | translate }}</a>
             </div>
         </div>
@@ -21,7 +32,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'post.posts' | translate }}</h3>
+                    <h3 class="box-title">{{ 'user.users' | translate }}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body" st-table="listCtrl.rowCollection" st-safe-src="listCtrl.rowCollection"
@@ -51,15 +62,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <ui-select ng-model="listCtrl.filter.category_ids[0]">
-                                        <ui-select-match placeholder="All categories">
-                                            {{ $select.selected.name }}
+                                    <ui-select ng-model="listCtrl.filter.role_ids[0]">
+                                        <ui-select-match placeholder="All roles">
+                                            {{ $select.selected.display_name }}
                                         </ui-select-match>
                                         <ui-select-choices
-                                                repeat="category.id as category in listCtrl.categories track by $index"
-                                                refresh="refreshCategory($select.search)"
+                                                repeat="role.id as role in listCtrl.roles track by $index"
+                                                refresh="listCtrl.refreshRole($select.search)"
                                                 refresh-delay="0">
-                                            <div ng-bind-html="category.name | highlight: $select.search"></div>
+                                            <div ng-bind-html="role.display_name | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -91,7 +102,7 @@
                         <div class="col-md-12">
                             <div class="btn-group">
                                 <button ng-disabled="listCtrl.countSelectedRows <= 0" class="btn btn-default btn-sm"
-                                        ng-really-message="{{ 'post.delete_before_msg' | translate }}"
+                                        ng-really-message="{{ 'user.delete_before_msg' | translate }}"
                                         ng-really-click="listCtrl.bulkRemove()"><i
                                         class="fa fa-trash-o"></i> Delete Selected
                                 </button>
@@ -111,9 +122,8 @@
                                                    count-selected-rows="listCtrl.countSelectedRows"
                                                    ng-model="isAllSelected"></st-select-all>
                                 </th>
-                                <th>{{ 'global.title' | translate}}</th>
-                                <th width="15%">{{ 'global.status' | translate}}</th>
-                                <th width="15%">{{ 'global.created_at' | translate }}</th>
+                                <th>{{ 'global.name' | translate}}</th>
+                                <th width="20%">{{ 'global.created_at' | translate }}</th>
                                 <th width="15%"></th>
                             </tr>
                             </thead>
@@ -123,15 +133,12 @@
                                 <td>
                                     <input type="checkbox" ng-checked="row.isSelected" st-select-row="row"/>
                                 </td>
-                                <td>{{ row.title }}
-                                </td>
-                                <td>
-                                    {{ row.status }}
+                                <td>{{ row.getFullName() }}
                                 </td>
                                 <td>{{ row.created_at | amCalendar }}</td>
                                 <td>
                                     <div class="btn-group" dropdown>
-                                        <a href="posts/{{ row.id }}/edit" class="btn btn-primary"><i
+                                        <a href="users/{{ row.id }}/edit" class="btn btn-primary"><i
                                                 class="fa fa-search"></i> {{ 'button.edit' | translate }}
                                         </a>
                                         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>

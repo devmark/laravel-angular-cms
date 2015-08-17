@@ -11,7 +11,7 @@ class SettingTableSeeder extends Seeder
     {
         Setting::insert([
                 [
-                    'type' => 'general', 'name' => 'site_name', 'value' => 'YOOV CMS Site',
+                    'type' => 'general', 'name' => 'site_name', 'value' => 'CMS Site',
                 ],
                 [
                     'type' => 'general', 'name' => 'admin_email', 'value' => 'admin_email',
