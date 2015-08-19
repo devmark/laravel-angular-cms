@@ -13,7 +13,7 @@
 
     angular.module('backend')
         .controller('MainController', MainController);
-    function MainController(siteThemeService, $location, meService, authenticationService) {
+    function MainController(siteThemeService, $location, userService, authenticationService) {
 
         var vm = this;
 
@@ -23,9 +23,8 @@
         //============================================
         //User Control
         //============================================
-
         if (authenticationService.check()) {
-            meService.get().then(function (result) {
+            userService.getMe().then(function (result) {
                 vm.me = result;
             });
         }

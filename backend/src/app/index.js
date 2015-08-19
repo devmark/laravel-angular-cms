@@ -22,7 +22,6 @@
         'postCategoryModule',
         'settingModule',
         'languageModule',
-        'meModule',
 
         'theme.directives',
         'theme.services',

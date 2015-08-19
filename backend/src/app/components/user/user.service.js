@@ -38,6 +38,16 @@
             return Restangular.one('users', id).remove();
         };
 
+        service.getMe = function (param, httpConfig) {
+            param = param || {};
+            httpConfig = httpConfig || {};
+            return Restangular.one('me', '').withHttpConfig(httpConfig).get(param);
+        };
+        service.updateMe = function (data) {
+            return Restangular.one('me').customPUT(data);
+        };
+
+
         return service;
 
     }

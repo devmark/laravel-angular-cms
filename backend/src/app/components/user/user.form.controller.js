@@ -21,12 +21,11 @@
         //==========================================
         // Load Data
         //==========================================
-        if (vm.user.roles.length > 0) {
-            roleService.get({'ids[]': vm.user.roles}).then(function (result) {
-                vm.user.roles = result;
-            });
-        }
 
+
+        //==========================================
+        // Function
+        //==========================================
         vm.roles = [];
         vm.refreshRole = function (string) {
             if (string !== '') {
@@ -37,16 +36,12 @@
         };
 
         //==========================================
-        // Function
-        //==========================================
-
-        //==========================================
         // save
         //==========================================
         var save = function () {
             var user = angular.copy(vm.user);
+            user.roles = _.pluck(user.roles, 'id');
             var deferred = $q.defer();
-
             if (user.id !== '') {
                 userService.update(user.id, user).then(function (result) {
                     deferred.resolve(result);

@@ -69,7 +69,7 @@
             roleService.get(params, {cache: false}).then(function (result) {
                 tableState.pagination.next = result.meta.pagination.next_page || null;
                 tableState.pagination.prev = result.meta.pagination.prev_page || null;
-                //update products list
+                //update list
                 vm.rowCollection = result;
                 vm.tableLoading = false;
             });
@@ -83,16 +83,14 @@
             vm.rowCollection.push({id: '', 'name': '', permissions: []});
         };
         vm.save = function (row) {
-
             var index = vm.rowCollection.indexOf(row);
             if (index === -1) {
                 return;
             }
             var data = angular.copy(row);
-
-
+            data.permissions = data.permissionIds;
+            delete data.permissionIds;
             if (data.id !== '') {
-                console.log('sd');
                 roleService.update(data.id, data).then(function () {
                     // show notifications
                     toaster.pop('success', '', $translate.instant('role.edit_success_msg'));
