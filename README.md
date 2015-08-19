@@ -7,14 +7,14 @@
   - Include Json Auth Token
   - Include Data Transformer
   - Include API Data Exception
-  - output JSON or others
+  - Output JSON or others
+  - Include CSRF Protection
 * Angular 1.4 for Backend
   - Include AdminLTE template
-  - Include ui-router, Restangular etc...
+  - Include ui-router, Restangular etc ...
 * Independent Laravel, Angular
 * Backend
-	* (TODO)User management
-	* (TODO)Manage languages
+	* User management
 	* Manage Media & Media Categories
 	* Manage posts and posts categories
 * Frontend
