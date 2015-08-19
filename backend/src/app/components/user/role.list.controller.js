@@ -93,10 +93,10 @@
             if (data.id !== '') {
                 roleService.update(data.id, data).then(function () {
                     // show notifications
-                    toaster.pop('success', '', $translate.instant('role.edit_success_msg'));
+                    toaster.pop('success', '', $translate.instant('role.update_success_msg'));
                 }, function () {
                     // show notifications
-                    toaster.pop('error', '', $translate.instant('role.edit_error_msg'));
+                    toaster.pop('error', '', $translate.instant('role.update_error_msg'));
 
                 });
             } else {
