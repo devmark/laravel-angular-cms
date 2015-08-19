@@ -1,6 +1,6 @@
 # Laravel Angular CMS Starter Site
 
-![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/post-list.png)
+![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/user-list.png)
 
 ## Features:
 * Laravel 5.1 for API
