@@ -6,12 +6,13 @@ use App\Models\Language;
 
 class Post extends BaseModel
 {
+    use TimestampsFormatTrait;
     use \Conner\Tagging\TaggableTrait;
     use PublishedAtTimestampsFormatTrait;
-    protected $table = 'post';
 
+
+    protected $table = 'post';
     public $timestamps = true;
-    protected $with = [];
 
     public function categories()
     {

@@ -9,6 +9,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
+    use TimestampsFormatTrait;
     use EntrustUserTrait;
 
     use Authenticatable, CanResetPassword;

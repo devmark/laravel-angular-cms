@@ -5,6 +5,9 @@ use App\Models\Role;
 
 class RoleTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'permissions',
+    ];
 
     public function transform(Role $item)
     {
@@ -13,11 +16,18 @@ class RoleTransformer extends TransformerAbstract
             'name'         => $item->name,
             'display_name' => $item->display_name,
             'description'  => $item->description,
-            'permissions'  => array_map('intval', array_pluck($item->perms->toArray(), 'pivot.permission_id')),
             'created_at'   => $item->created_at,
             'updated_at'   => $item->updated_at,
         ];
     }
+
+    public function includePermissions(Role $item)
+    {
+        $permissions = $item->perms;
+
+        return $this->collection($permissions, new PermissionTransformer, null);
+    }
+
 }
 
 

@@ -7,7 +7,7 @@ class Media extends BaseModel
     protected $table = 'media';
 
     public $timestamps = true;
-
+    use TimestampsFormatTrait;
     protected $appends = ['url'];
 
     public function getUrlAttribute()
@@ -15,12 +15,9 @@ class Media extends BaseModel
         return URL::to('api/media/m/' . $this->attributes['path'] . $this->attributes['key']);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();
-
-        // before delete() method call this
         static::deleting(function ($image) {
             Storage::delete('uploads/m/' . $image->path . $image->key);
         });
