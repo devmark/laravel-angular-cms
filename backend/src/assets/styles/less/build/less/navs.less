@@ -43,6 +43,8 @@
   }
   > li.active > a,
   > li.active > a:hover {
+    background: transparent;
+    color: #444;
     border-top: 0;
     border-left-color: @light-blue;
   }
@@ -71,7 +73,10 @@
       margin-bottom: -2px;
       > a {
         color: #444;
-        .border-radius(0)!important;
+        .border-radius(0);
+        &.text-muted {
+          color: #999;
+        }
         &,
         &:hover {
           background: transparent;
@@ -167,8 +172,11 @@
 .pagination {
   > li > a {
     background: #fafafa;
-    color: #666;
-    .border-radius(0)!important;
+    color: #666;    
   }
-
+  &.pagination-flat {
+    > li > a {
+      .border-radius(0)!important;
+    }
+  }
 }
