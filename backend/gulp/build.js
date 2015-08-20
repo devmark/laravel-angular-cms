@@ -31,6 +31,15 @@ gulp.task('htmlProductionChange', ['html'], function () {
         .pipe(gulp.dest('./'));
 });
 
+gulp.task('cleanApiBackendFolder', function () {
+    return $.del(['../api/public/assets-backend/**/*'], {force: true});
+});
+
+gulp.task('copyDistToApiFolder', ['htmlProductionChange', 'cleanApiBackendFolder'], function () {
+    return gulp.src([conf.paths.dist + '/**/*'])
+        .pipe(gulp.dest('../api/public/assets-backend/'));
+});
+
 gulp.task('html', ['inject', 'partials'], function () {
     var partialsInjectFile = gulp.src(path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'), {read: false});
     var partialsInjectOptions = {
@@ -97,4 +106,4 @@ gulp.task('clean', function (done) {
     $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
 });
 
-gulp.task('build', ['html', 'fonts', 'other', 'htmlProductionChange']);
+gulp.task('build', ['html', 'fonts', 'other', 'htmlProductionChange', 'copyDistToApiFolder']);
