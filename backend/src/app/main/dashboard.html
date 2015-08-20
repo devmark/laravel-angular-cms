@@ -12,13 +12,13 @@
             <h3 class="box-title">Hello, {{ mainCtrl.me.getFullName() }}!</h3>
         </div>
         <div class="box-body">
-            <a class="btn btn-app">
+            <a class="btn btn-app" ui-sref="main.post-list">
                 <i class="fa fa-tag"></i> New Post
             </a>
-            <a class="btn btn-app">
+            <a class="btn btn-app" ui-sref="main.user-list">
                 <i class="fa fa-user"></i> New User
             </a>
-            <a class="btn btn-app">
+            <a class="btn btn-app" ui-sref="main.media-list">
                 <i class="fa fa fa-file-archive-o"></i> New Media
             </a>
         </div>
