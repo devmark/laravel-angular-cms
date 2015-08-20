@@ -154,7 +154,7 @@
             };
 
             Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
-                if (response.status === 400 || response.message === 'token_expired') {
+                if (response.status === 401 || response.message === 'token_expired') {
                     return refreshAccessToken().then(function () {
                         response.config.headers.Authorization = authenticationService.getToken();
                         // Repeat the request and then call the handlers the usual way.

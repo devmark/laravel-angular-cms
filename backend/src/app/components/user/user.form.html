@@ -95,7 +95,7 @@
                             <label for="email" class="control-label">{{ 'user.email' | translate }}</label>
                             <input id="email" type="email" class="form-control"
                                    placeholder="{{ 'user.email' | translate }}"
-                                   required="" ng-required=""
+                                   required=""
                                    ng-model="formCtrl.user.email">
                         </div>
 
@@ -103,7 +103,7 @@
                             <label for="password" class="control-label">{{ 'user.password' | translate }}</label>
                             <input id="password" type="password" class="form-control"
                                    placeholder="{{ 'user.password' | translate }}"
-                                   ng-min="8" ng-required=""
+                                   ng-minlength="8" required=""
                                    ng-model="formCtrl.user.password">
                         </div>
 

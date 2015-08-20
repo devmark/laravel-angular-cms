@@ -17,7 +17,7 @@
         var _self = this;
         var service = {};
         service.formError = function (result) {
-            toaster.pop('error', '', result.data.message);
+            toaster.pop('error', '', result.data.result.message);
         };
 
         return service;

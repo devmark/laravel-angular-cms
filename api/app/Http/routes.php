@@ -21,7 +21,6 @@ Route::group(['prefix' => 'api'], function () {
             //Media Categories =================================
             Route::get('media/categories', ['uses' => 'Api\MediaCategoryController@index', 'as' => 'media.categories.index', 'middleware' => 'permission:media.categories.index']);
             Route::get('media/categories/{id}', ['uses' => 'Api\MediaCategoryController@show', 'as' => 'media.categories.show', 'middleware' => 'permission:media.categories.index']);
-
             Route::post('media/categories', ['uses' => 'Api\MediaCategoryController@store', 'as' => 'media.categories.store', 'middleware' => 'permission:media.categories.store']);
             Route::put('media/categories/{id}', ['uses' => 'Api\MediaCategoryController@update', 'as' => 'media.categories.update', 'middleware' => 'permission:media.categories.update']);
             Route::delete('media/categories/{id}', ['uses' => 'Api\MediaCategoryController@destroy', 'as' => 'media.categories.destroy', 'middleware' => 'permission:media.categories.destroy']);
@@ -29,7 +28,6 @@ Route::group(['prefix' => 'api'], function () {
             //Media =================================
             Route::get('media', ['uses' => 'Api\MediaController@index', 'as' => 'media.index', 'middleware' => 'permission:media.index']);
             Route::get('media/{id}', ['uses' => 'Api\MediaController@show', 'as' => 'media.show', 'middleware' => 'permission:media.index']);
-
             Route::post('media', ['uses' => 'Api\MediaController@store', 'as' => 'media.store', 'middleware' => 'permission:media.store']);
             Route::put('media/{id}', ['uses' => 'Api\MediaController@update', 'as' => 'media.update', 'middleware' => 'permission:media.update']);
             Route::delete('media/{id}', ['uses' => 'Api\MediaController@destroy', 'as' => 'media.destroy', 'middleware' => 'permission:media.destroy']);
@@ -37,7 +35,6 @@ Route::group(['prefix' => 'api'], function () {
             //Post Categories =================================
             Route::get('posts/categories', ['uses' => 'Api\PostCategoryController@index', 'as' => 'posts.categories.index', 'middleware' => 'permission:posts.categories.index']);
             Route::get('posts/categories/{id}', ['uses' => 'Api\PostCategoryController@show', 'as' => 'posts.categories.show', 'middleware' => 'permission:posts.categories.index']);
-
             Route::post('posts/categories/', ['uses' => 'Api\PostCategoryController@store', 'as' => 'posts.categories.store', 'middleware' => 'permission:posts.categories.store']);
             Route::put('posts/categories/{id}', ['uses' => 'Api\PostCategoryController@update', 'as' => 'posts.categories.update', 'middleware' => 'permission:posts.categories.update']);
             Route::delete('posts/categories/{id}', ['uses' => 'Api\PostCategoryController@destroy', 'as' => 'posts.categories.destroy', 'middleware' => 'permission:posts.categories.destroy']);
@@ -46,16 +43,13 @@ Route::group(['prefix' => 'api'], function () {
             //Posts =================================
             Route::get('posts', ['uses' => 'Api\PostController@index', 'as' => 'posts.index', 'middleware' => 'permission:posts.index']);
             Route::get('posts/{id}', ['uses' => 'Api\PostController@show', 'as' => 'posts.show', 'middleware' => 'permission:posts.index']);
-
             Route::post('posts', ['uses' => 'Api\PostController@store', 'as' => 'posts.store', 'middleware' => 'permission:posts.store']);
             Route::put('posts/{id}', ['uses' => 'Api\PostController@update', 'as' => 'posts.update', 'middleware' => 'permission:posts.update']);
             Route::delete('posts/{id}', ['uses' => 'Api\PostController@destroy', 'as' => 'posts.destroy', 'middleware' => 'permission:posts.destroy']);
 
-
             //Users =================================
             Route::get('users', ['uses' => 'Api\UserController@index', 'as' => 'users.index', 'middleware' => 'permission:users.index']);
             Route::get('users/{id}', ['uses' => 'Api\UserController@show', 'as' => 'users.show', 'middleware' => 'permission:users.index']);
-
             Route::post('users', ['uses' => 'Api\UserController@store', 'as' => 'users.store', 'middleware' => 'permission:users.store']);
             Route::put('users/{id}', ['uses' => 'Api\UserController@update', 'as' => 'users.update', 'middleware' => 'permission:users.update']);
             Route::delete('users/{id}', ['uses' => 'Api\UserController@destroy', 'as' => 'users.destroy', 'middleware' => 'permission:users.destroy']);

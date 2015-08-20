@@ -9,12 +9,11 @@
  *
  */
 (function () {
-'use strict';
+    'use strict';
 
-angular
-    .module('global.directive', [])
-    .directive('ngReallyClick', ['$modal',
-        function ($modal) {
+    angular
+        .module('global.directive', [])
+        .directive('ngReallyClick', function ($modal) {
 
             var ModalInstanceCtrl = function ($scope, $modalInstance) {
                 $scope.ok = function () {
@@ -53,7 +52,7 @@ angular
 
                 }
             }
-        }]
-);
+        }
+    );
 
 })();

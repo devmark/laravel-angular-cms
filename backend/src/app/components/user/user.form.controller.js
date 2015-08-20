@@ -12,15 +12,13 @@
     'use strict';
 
     angular.module('userModule').controller('UserFormController', UserFormController);
-    function UserFormController($scope, $http, $window, userService, messageService, moment, angularMomentConfig, toaster, $translate, user, $filter, $location, $timeout, Restangular, $q, roleService) {
-
+    function UserFormController($scope, userService, messageService, toaster, $translate, user, $location, $q, roleService) {
         var vm = this;
 
+        //==========================================
+        // Variable
+        //==========================================
         vm.user = (_.isEmpty(user) || _.isUndefined(user)) ? userService.init() : user;
-
-        //==========================================
-        // Load Data
-        //==========================================
 
 
         //==========================================
