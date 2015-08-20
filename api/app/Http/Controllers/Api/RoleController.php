@@ -11,6 +11,7 @@ use App\Transformers\RoleTransformer;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ResourceException;
+use App\Exceptions\RestrictToChangeOwnerRoleException;
 
 class RoleController extends ApiController
 {
@@ -120,6 +121,7 @@ class RoleController extends ApiController
      */
     public function update($id)
     {
+
         $rules = [
             'name'         => 'alpha_dash|min:1|max:255',
             'display_name' => 'string|max:255',
@@ -133,9 +135,7 @@ class RoleController extends ApiController
             throw new ResourceException($validator->errors()->first());
         }
         $role = Role::find($id);
-        if (is_null($role)) {
-            throw new NotFoundException;
-        }
+        $this->checkPoint($role);
 
         $fields = ['name'];
         foreach ($fields as $key => $field) {
@@ -171,13 +171,21 @@ class RoleController extends ApiController
     public function destroy($id)
     {
         $role = Role::find($id);
-        if (is_null($role)) {
-            throw new NotFoundException;
-        }
+        $this->checkPoint($role);
 
         $role->delete();
 
         return response()->return();
+    }
+
+    public function checkPoint($role)
+    {
+        if (is_null($role)) {
+            throw new NotFoundException;
+        }
+        if ($role->name === 'owner') {
+            throw new RestrictToChangeOwnerRoleException;
+        }
     }
 
 }

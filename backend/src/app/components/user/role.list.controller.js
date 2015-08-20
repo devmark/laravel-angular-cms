@@ -67,8 +67,15 @@
 
             vm.tableLoading = true;
             roleService.get(params, {cache: false}).then(function (result) {
+
+
                 tableState.pagination.next = result.meta.pagination.next_page || null;
                 tableState.pagination.prev = result.meta.pagination.prev_page || null;
+
+                //Do not allow change owner role.
+                result = _.filter(result, function (val) {
+                    return val.name !== 'owner';
+                });
                 //update list
                 vm.rowCollection = result;
                 vm.tableLoading = false;
@@ -92,43 +99,37 @@
             delete data.permissionIds;
             if (data.id !== '') {
                 roleService.update(data.id, data).then(function () {
-                    // show notifications
                     toaster.pop('success', '', $translate.instant('role.update_success_msg'));
-                }, function () {
-                    // show notifications
+                }, function (result) {
                     toaster.pop('error', '', $translate.instant('role.update_error_msg'));
-
                 });
             } else {
                 roleService.store(data).then(function () {
-                    // remove the row data
-                    // vm.rowCollection.splice(index, 1);
-
-                    // show notifications
                     toaster.pop('success', '', $translate.instant('role.create_success_msg'));
-                }, function () {
-                    // show notifications
+                }, function (result) {
                     toaster.pop('error', '', $translate.instant('role.create_error_msg'));
-
                 });
             }
         };
 
         vm.remove = function removeItem(row) {
             var index = vm.rowCollection.indexOf(row);
-            if (index !== -1 && row.id !== '') {
-                roleService.destroy(row.id).then(function () {
-                        // remove the row data
-                        vm.rowCollection.splice(index, 1);
+            if (index !== -1) {
+                if (row.id !== '') {
+                    roleService.destroy(row.id).then(function () {
+                            // remove the row data
+                            vm.rowCollection.splice(index, 1);
 
-                        // show notifications
-                        toaster.pop('success', '', $translate.instant('role.delete_success_msg'));
-                    },
-                    function () {
-                        // show notifications
-                        toaster.pop('error', '', $translate.instant('role.delete_error_msg'));
+                            toaster.pop('success', '', $translate.instant('role.delete_success_msg'));
+                        },
+                        function () {
+                            toaster.pop('error', '', $translate.instant('role.delete_error_msg'));
 
-                    });
+                        });
+                } else {
+                    vm.rowCollection.splice(index, 1);
+                    toaster.pop('success', '', $translate.instant('role.delete_success_msg'));
+                }
             }
         };
 
@@ -148,10 +149,8 @@
                 }
                 vm.rowCollection = newRowCollection;
 
-                // show notifications
                 toaster.pop('success', '', $translate.instant('role.delete_success_msg'));
             }, function () {
-                // show notifications
                 toaster.pop('error', '', $translate.instant('role.delete_error_msg'));
             });
         };
