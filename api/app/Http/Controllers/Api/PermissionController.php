@@ -20,6 +20,11 @@ class PermissionController extends ApiController
         parent::__construct();
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
 

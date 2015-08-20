@@ -75,7 +75,7 @@ class AuthController extends ApiController
     }
 
     /**
-     *
+     * refresh token
      *
      * @return Response
      */

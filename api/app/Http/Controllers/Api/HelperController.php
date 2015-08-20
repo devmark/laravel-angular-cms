@@ -15,6 +15,11 @@ class HelperController extends ApiController
         parent::__construct();
     }
 
+    /**
+     * Gen slug by string
+     *
+     * @return Response
+     */
     public function slug()
     {
         $slug = '';

@@ -21,6 +21,11 @@ class RoleController extends ApiController
         parent::__construct();
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
         $validator = Validator::make(Input::all(), [
@@ -178,6 +183,16 @@ class RoleController extends ApiController
         return response()->return();
     }
 
+    /**
+     * Check the model.
+     *
+     * @param mixed $role
+     *
+     * @throws \Exception
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return void
+     */
     public function checkPoint($role)
     {
         if (is_null($role)) {
