@@ -103,7 +103,7 @@
                             <label for="password" class="control-label">{{ 'user.password' | translate }}</label>
                             <input id="password" type="password" class="form-control"
                                    placeholder="{{ 'user.password' | translate }}"
-                                   ng-minlength="8" required=""
+                                   ng-minlength="formCtrl.user.id === '' ? 8 : 0" ng-required="formCtrl.user.id === ''"
                                    ng-model="formCtrl.user.password">
                         </div>
 

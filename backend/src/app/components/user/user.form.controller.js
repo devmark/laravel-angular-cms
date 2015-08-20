@@ -12,7 +12,7 @@
     'use strict';
 
     angular.module('userModule').controller('UserFormController', UserFormController);
-    function UserFormController($scope, userService, messageService, toaster, $translate, user, $location, $q, roleService) {
+    function UserFormController($scope, userService, messageService, toaster, $translate, user, $location, $q, roleService, $state) {
         var vm = this;
 
         //==========================================
@@ -66,9 +66,9 @@
                 vm.saveLoading = false;
                 toaster.pop('success', '', $translate.instant('user.' + (vm.user.id !== '' ? 'update_success_msg' : 'create_success_msg')));
                 if (vm.isSaveAndExit) {
-                    $location.path('users');
+                    $state.go('main.user-list');
                 } else if (vm.user.id === '') {
-                    $location.path('users/' + result.id + '/edit');
+                    $state.go('main.user-edit', {id: result.id});
                 } else {
                     vm.user = result;
                 }
