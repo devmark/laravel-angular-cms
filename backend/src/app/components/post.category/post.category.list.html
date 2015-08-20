@@ -27,7 +27,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
 
-                    <div ui-tree="listCtrl.categoryTree" ng-if="listCtrl.categories">
+                    <div ui-tree="listCtrl.categoryTree" ng-if="listCtrl.categories.length > 0">
                         <ol ui-tree-nodes="" ng-model="listCtrl.categories">
                             <li ng-repeat="node in listCtrl.categories"
                                 collapsed="{{ node.lft+1 !== node.rgt > 0 ? 'true' : 'false'}}"
@@ -62,9 +62,9 @@
             </a>
             {{ node.name }}
             <div class="tree-node-tool pull-right">
-                <a class="btn btn-primary" data-nodrag href="posts/categories/{{ node.id }}/edit"
+                <a class="btn btn-primary" data-nodrag ui-sref="main.post-category-edit({id:node.id})"
                    style=""><span class="fa fa-edit"></span> {{ 'button.edit' | translate }}</a>
-                <a class="btn btn-danger" data-nodrag ng-click="delete(this)"><span
+                <a class="btn btn-danger" data-nodrag ng-click="listCtrl.delete(this)"><span
                         class="fa fa-remove"></span> {{ 'button.remove' | translate }}</a>
             </div>
 
