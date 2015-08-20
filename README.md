@@ -73,8 +73,7 @@ This project makes use of Bower. You must first ensure that Node.js (included in
 1. edit `.env` file set `APP_DEBUG` to `false`
 
 #### Backend
-1. run `gulp` in `backend` directory
-2. copy `backend/dist` all files to `api/public/assets-backend`
+1. run `gulp` in `backend` directory. It will auto copy `backend/dist` all files to `api/public/assets-backend`
 
 #### Frontend
 1. Move all frontend files to `api/public`
@@ -159,8 +158,6 @@ Soon
 Soon
 
 ## Backend Detail:
-1. run `gulp` in `backend` directory
-2. copy `backend/dist` all files to `api/public/assets-backend`
-
+Soon
 ## Frontend Detail:
 1. You can move all frontend file to `api/public`
