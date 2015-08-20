@@ -1,6 +1,6 @@
 # Laravel Angular CMS Starter Site
 
-[![Join the chat at https://gitter.im/devmark/laravel-angular-cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/devmark/laravel-angular-cms)
+[![Join the chat at https://gitter.im/devmark/laravel-angular-cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/devmark/laravel-angular-cms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 ![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/user-list.png)
