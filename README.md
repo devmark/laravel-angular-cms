@@ -3,18 +3,21 @@
 ![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/user-list.png)
 
 ## Features:
+* Independent Laravel, Angular
 * Laravel 5.1 for API
   - Include Json Auth Token
   - Include Data Transformer
   - Include API Data Exception
   - Output JSON or others
   - Include CSRF Protection
+  - Timezone
 * Angular 1.4 for Backend
   - Include AdminLTE template
   - Include ui-router, Restangular etc ...
-* Independent Laravel, Angular
+  - Timezone
+  - Support Multi-Languages interface
 * Backend
-	* User management
+	* User & Role management
 	* Manage Media & Media Categories
 	* Manage posts and posts categories
 * Frontend
@@ -39,13 +42,12 @@
 ### Step 2: Init api
  
 #### Init Laravel
-1. move to `api` directory
-2. run `composer install`
+1. Move to `api` directory
+2. Run `composer install`
 
 #### Init Database
-3. setup database config in `.env` file (copy from `.env.example`)
-4. run `php artisan migrate`
-5. run `php artisan db:seed`
+3. Setup database config in `.env` file (copy from `.env.example`)
+4. Run `php artisan migrate --seed`
 
 -----
 <a name="step3"></a>
@@ -53,11 +55,11 @@
 
 This project makes use of Bower. You must first ensure that Node.js (included in homestead) is installed on your machine.
 
-1. install npm, gulp, bower 
-2. run `sudo npm install`
-3. run `bower install`
-4. edit `backend/src/index.js`, replace `cms.dev` to your api domain
-5. run `gulp serve` for development
+1. Install npm, gulp, bower 
+2. Run `sudo npm install`
+3. Run `bower install`
+4. Edit `backend/src/index.js`, replace `cms.dev` to your api domain
+5. Run `gulp serve` for development
 
 
 -----
@@ -72,8 +74,22 @@ This project makes use of Bower. You must first ensure that Node.js (included in
 2. copy `backend/dist` all files to `api/public/assets-backend`
 
 #### Frontend
-1. You can move all frontend file to `api/public`
+1. Move all frontend files to `api/public`
 
+#### Server
+Redirect backend:
+
+##### Nginx
+```
+    location ~ ^/backend {
+        rewrite ^/backend(.*) /assets-backend/$1 break;
+    }
+```
+
+##### Apache
+```
+    RewriteRule ^backend/(.*)\.([^\.]+)$ /assets-backend/$1.$2 [L]
+```
 
 ----
 <a name="step5"></a>
