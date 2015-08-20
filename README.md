@@ -121,7 +121,33 @@ Soon
 Soon
 
 ### Add Exception
-Soon
+Add Whatever Exception you want in `api/app/Exceptions`
+
+Example:
+```php
+class EmailOrPasswordIncorrectException extends HttpException
+{
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
+    {
+        parent::__construct(401, 'Email/Password is incorrect', $previous, [], 10001);
+    }
+}
+```
+Use it:
+```php
+    throw new EmailOrPasswordIncorrectException;
+```
+
+Output:
+```json
+{
+    "result":{
+        "status":false,
+        "code":10001,
+        "message":"Email\/Password is incorrect"
+    }
+}
+```
 
 ### Add Transformer
 Soon
