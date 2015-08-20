@@ -84,6 +84,7 @@
     "create_success_msg": "New user has been created.",
     "delete_success_msg": "Deleted a user.",
     "update_success_msg": "Updated a user.",
+    "update_error_msg": "Error occurred when trying to update user.",
     "delete_before_msg": "This will only delete user with no orders. You cannot recover deleted user, do you wish to continue?",
     "delete_error_msg": "Error occurred when trying to delete user."
   },
@@ -99,6 +100,7 @@
     "create_success_msg": "New role has been created.",
     "delete_success_msg": "Deleted a role.",
     "update_success_msg": "Updated a role.",
+    "update_error_msg": "Error occurred when trying to update role.",
     "delete_before_msg": "This will only delete role with no orders. You cannot recover deleted role, do you wish to continue?",
     "delete_error_msg": "Error occurred when trying to delete role."
   },
@@ -112,25 +114,11 @@
     "create_success_msg": "New media has been created.",
     "delete_success_msg": "Deleted a media.",
     "update_success_msg": "Updated a media.",
+    "update_error_msg": "Error occurred when trying to update media.",
     "move_success_msg": "Moved a media.",
     "move_error_msg": "Error occurred when trying to move a media.",
     "delete_before_msg": "This will only delete media with no orders. You cannot recover deleted media, do you wish to continue?",
     "delete_error_msg": "Error occurred when trying to delete media."
-  },
-  "employee": {
-    "employees": "Employees",
-    "employee": "Employee",
-    "add_a_employee": "Add a employee",
-    "edit_employee": "Edit employee",
-    "remove_employees": "Remove employees",
-    "delete_employee": "Delete employee",
-    "published_on": "Published on",
-    "visibility": "Visibility",
-    "create_success_msg": "New employee has been created.",
-    "delete_success_msg": "Deleted a employee.",
-    "update_success_msg": "Updated a employee.",
-    "delete_before_msg": "This will only delete employee with no orders. You cannot recover deleted employee, do you wish to continue?",
-    "delete_error_msg": "Error occurred when trying to delete employee."
   },
   "post": {
     "posts": "Posts",
@@ -144,6 +132,7 @@
     "create_success_msg": "New post has been created.",
     "delete_success_msg": "Deleted a post.",
     "update_success_msg": "Updated a post.",
+    "update_error_msg": "Error occurred when trying to update post.",
     "delete_before_msg": "This will only delete post with no orders. You cannot recover deleted post, do you wish to continue?",
     "delete_error_msg": "Error occurred when trying to delete post.",
     "category": {
@@ -250,60 +239,6 @@
     "create_success_msg": "New address has been created.",
     "delete_success_msg": "Deleted a address.",
     "update_success_msg": "Updated a address."
-  },
-  "category": {
-    "categories": "Categories",
-    "category": "Category",
-    "add_a_category": "Add a category",
-    "edit_category": "Edit category",
-    "remove_categories": "Remove categories",
-    "delete_category": "Delete category",
-    "create_success_msg": "New category has been created.",
-    "create_error_msg": "Error occurred when trying to create category.",
-    "update_success_msg": "Updated a category.",
-    "update_error_msg": "Error occurred when trying to update category.",
-    "delete_success_msg": "Deleted a category.",
-    "delete_before_msg": "This will only delete category with no orders. You cannot recover deleted category, do you wish to continue?",
-    "delete_error_msg": "Error occurred when trying to delete category."
-  },
-  "setting": {
-    "setting": "Setting",
-    "general": {
-      "general": "General",
-      "store_details": "Store details",
-      "store_name": "Store Name",
-      "store_address": "Store Address",
-      "store_country": "Store Country",
-      "store_email": "Store Email",
-      "store_phone": "Store Phone",
-      "standards_and_formats": "Standards and formats",
-      "weight_unit": "Weight unit"
-    },
-    "create_success_msg": "New setting has been created.",
-    "update_success_msg": "Updated settings.",
-    "update_error_msg": "Error occurred when trying to update setting..",
-    "delete_success_msg": "Deleted a setting.",
-    "delete_error_msg": "Error occurred when trying to delete setting.",
-    "notification": {
-      "notification": "Notification",
-      "notifications": "Notifications",
-      "edit_a_notification": "Edit a notification",
-      "update_success_msg": "Updated notifications.",
-      "update_error_msg": "Error occurred when trying to update notifications."
-    }
-  },
-  "sample": {
-    "samples": "Samples",
-    "sample": "Sample",
-    "add_a_sample": "Add a sample",
-    "edit_sample": "Edit sample",
-    "remove_samples": "Remove samples",
-    "delete_sample": "Delete sample",
-    "create_success_msg": "New sample has been created.",
-    "update_success_msg": "Updated a sample.",
-    "delete_success_msg": "Deleted a sample.",
-    "delete_before_msg": "This will only delete sample with no orders. You cannot recover deleted sample, do you wish to continue?",
-    "delete_error_msg": "Error occurred when trying to delete sample."
   },
   "button": {
     "submit": "Save",
