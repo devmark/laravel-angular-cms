@@ -77,7 +77,6 @@
             var deferred = $q.defer();
 
             if (vm.filter.created_at !== '' && vm.filter.created_at !== null) {
-                console.log(vm.filter.created_at);
                 vm.filter.created_at_max = moment.tz(vm.filter.created_at, angularMomentConfig.timezone).utc().add(1, 'months').format('YYYY-MM-DD HH:mm:ss');
                 vm.filter.created_at_min = moment.tz(vm.filter.created_at, angularMomentConfig.timezone).utc().add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
             }

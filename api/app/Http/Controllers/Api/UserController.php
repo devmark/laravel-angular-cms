@@ -57,10 +57,10 @@ class UserController extends ApiController
             });
         }
         if (Input::has('created_at_min')) {
-            $users->where('created_at', '>=', Input::get('created_at_min'));
+            $users = $users->where('created_at', '>=', Input::get('created_at_min'));
         }
         if (Input::has('created_at_max')) {
-            $users->where('created_at', '<=', Input::get('created_at_max'));
+            $users = $users->where('created_at', '<=', Input::get('created_at_max'));
         }
 
         $users = $users->simplePaginate(Input::get('limit', 50));

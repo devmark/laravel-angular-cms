@@ -63,23 +63,23 @@ class PostController extends ApiController
             });
         }
         if (Input::has('published_at_min')) {
-            $posts->where('published_at', '>=', Input::get('published_at_min'));
+            $posts = $posts->where('published_at', '>=', Input::get('published_at_min'));
         }
         if (Input::has('published_at_max')) {
-            $posts->where('published_at', '<=', Input::get('published_at_max'));
+            $posts = $posts->where('published_at', '<=', Input::get('published_at_max'));
         }
 
         if (Input::has('created_at_min')) {
-            $posts->where('created_at', '>=', Input::get('created_at_min'));
+            $posts = $posts->where('created_at', '>=', Input::get('created_at_min'));
         }
         if (Input::has('created_at_max')) {
-            $posts->where('created_at', '<=', Input::get('created_at_max'));
+            $posts = $posts->where('created_at', '<=', Input::get('created_at_max'));
         }
         if (Input::has('updated_at_min')) {
-            $posts->where('updated_at', '>=', Input::get('updated_at_min'));
+            $posts = $posts->where('updated_at', '>=', Input::get('updated_at_min'));
         }
         if (Input::has('updated_at_max')) {
-            $posts->where('updated_at', '<=', Input::get('updated_at_max'));
+            $posts = $posts->where('updated_at', '<=', Input::get('updated_at_max'));
         }
 
         $posts = $posts->simplePaginate(Input::get('limit', 50));
