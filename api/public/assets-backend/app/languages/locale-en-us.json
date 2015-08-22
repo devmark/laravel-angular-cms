@@ -98,6 +98,7 @@
     "name": "Name",
     "display_name": "Display name",
     "create_success_msg": "New role has been created.",
+    "create_error_msg": "Error occurred when trying to create role.",
     "delete_success_msg": "Deleted a role.",
     "update_success_msg": "Updated a role.",
     "update_error_msg": "Error occurred when trying to update role.",
