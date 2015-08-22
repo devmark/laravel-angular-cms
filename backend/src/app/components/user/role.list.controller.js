@@ -89,6 +89,8 @@
         vm.add = function () {
             vm.rowCollection.push({id: '', 'name': '', permissions: []});
         };
+
+        vm.saveLoading = {};
         vm.save = function (row) {
             var index = vm.rowCollection.indexOf(row);
             if (index === -1) {
@@ -97,16 +99,22 @@
             var data = angular.copy(row);
             data.permissions = data.permissionIds;
             delete data.permissionIds;
+
+            vm.saveLoading[data.id] = true;
             if (data.id !== '') {
                 roleService.update(data.id, data).then(function () {
+                    vm.saveLoading[data.id] = false;
                     toaster.pop('success', '', $translate.instant('role.update_success_msg'));
                 }, function (result) {
+                    vm.saveLoading[data.id] = false;
                     toaster.pop('error', '', $translate.instant('role.update_error_msg'));
                 });
             } else {
                 roleService.store(data).then(function () {
+                    vm.saveLoading[data.id] = false;
                     toaster.pop('success', '', $translate.instant('role.create_success_msg'));
                 }, function (result) {
+                    vm.saveLoading[data.id] = false;
                     toaster.pop('error', '', $translate.instant('role.create_error_msg'));
                 });
             }

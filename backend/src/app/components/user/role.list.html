@@ -128,8 +128,14 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" dropdown>
-                                        <button ng-click="listCtrl.save(row)" class="btn btn-primary"><i
-                                                class="fa fa-save"></i> {{ 'button.save' | translate }}
+                                        <button ng-click="listCtrl.save(row)" class="btn btn-primary"
+                                                ng-disabled="listCtrl.saveLoading[row.id]">
+                                            <span ng-if="listCtrl.saveLoading[row.id]"><i
+                                                    class="fa fa-spin fa-spinner"></i></span>
+                                            <span ng-if="!listCtrl.saveLoading[row.id]"><i class="fa fa-save"></i> {{
+                                                'button.save' |
+                                                translate }}</span>
+
                                         </button>
                                         <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
                                             <span class="caret"></span>

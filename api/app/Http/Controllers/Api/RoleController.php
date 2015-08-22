@@ -81,7 +81,7 @@ class RoleController extends ApiController
     public function store()
     {
         $rules = [
-            'name'         => 'required|alpha_dash|min:1|max:255',
+            'name'         => 'required|alpha_dash|min:1|max:255|unique:role',
             'display_name' => 'string|max:255',
             'description'  => 'string',
             'permissions'  => 'array|integerInArray|existsInArray:permission,id',
@@ -128,7 +128,7 @@ class RoleController extends ApiController
     {
 
         $rules = [
-            'name'         => 'alpha_dash|min:1|max:255',
+            'name'         => 'alpha_dash|min:1|max:255|unique:role,id,' . $id,
             'display_name' => 'string|max:255',
             'description'  => 'string',
             'permissions'  => 'array|integerInArray|existsInArray:permission,id',
