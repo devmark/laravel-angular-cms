@@ -30,7 +30,7 @@
                     <div ui-tree="listCtrl.categoryTree" ng-if="listCtrl.categories.length > 0">
                         <ol ui-tree-nodes="" ng-model="listCtrl.categories">
                             <li ng-repeat="node in listCtrl.categories"
-                                collapsed="{{ node.lft+1 !== node.rgt > 0 ? 'true' : 'false'}}"
+                                collapsed="{{ node.lft+1 !== node.rgt  ? 'true' : 'false'}}"
                                 ui-tree-node
                                 ng-include="'nodes_renderer.html'"></li>
                         </ol>
@@ -73,7 +73,7 @@
 
     <ol ui-tree-nodes="" ng-model="node.children" ng-if="!collapsed" ng-class="{hidden: collapsed}">
         <li ng-if="listCtrl.getChildrenLoading[node.id]"><i class="fa fa-refresh fa-spin"></i></li>
-        <li ng-repeat="node in node.children" collapsed="{{ node.lft+1 !== node.rgt > 0 ? 'true' : 'false'}}"
+        <li ng-repeat="node in node.children" collapsed="{{ node.lft+1 !== node.rgt ? 'true' : 'false'}}"
             ui-tree-node
             ng-include="'nodes_renderer.html'">
         </li>

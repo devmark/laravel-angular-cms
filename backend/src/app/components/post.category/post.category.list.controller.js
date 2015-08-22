@@ -62,15 +62,23 @@
         vm.categoryTree = {
             collapsed: true,
             accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                console.log(sourceNodeScope, destNodesScope, destIndex);
                 return true;
+            },
+            dragStart: function (event) {
+                var oldParent = event.dest.nodesScope.$parent.$parent.$modelValue;
+                
+                //if old parent get only a children, remove the handle tool
+                if (!_.isUndefined(oldParent) && oldParent.children.length === 1) {
+                    oldParent.rgt = oldParent.lft + 1;
+                }
             },
             dropped: function (event) {
                 if (!event.pos.moving) {
                     return;
                 }
-                var source = event.source.nodeScope.$modelValue.id;
 
+                var source = event.source.nodeScope.$modelValue.id;
+                console.log('sad', event.source.nodeScope);
                 var categoryAPI = {};
 
                 var dest = event.dest.nodesScope.$parent.$modelValue;
@@ -91,8 +99,13 @@
                 }
 
                 postCategoryService.move(source, categoryAPI).then(function (result) {
+                    if (!_.isUndefined(dest) && dest.children.length > 0) {
+                        dest.rgt += 1;
+                    }
+
                     // show notifications
                     toaster.pop('success', '', $translate.instant('post.category.update_success_msg'));
+
                 });
 
             }
