@@ -47,7 +47,6 @@
             return Restangular.one('me').customPUT(data);
         };
 
-
         return service;
 
     }

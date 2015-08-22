@@ -25,16 +25,7 @@
             active: true,
             meta_title: '',
             meta_description: '',
-            meta_keywords: '',
-            weight_unit: 'g',
-            product_per_page: 10,
-            tax_in_price: false,
-            tax_in_shipping: false,
-            currency_symbol: '$',
-            currency_rate: {
-                USD: 0.129,
-                CNY: 0.801
-            }
+            meta_keywords: ''
         };
 
         var service = {};

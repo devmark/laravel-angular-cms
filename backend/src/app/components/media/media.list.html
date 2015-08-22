@@ -73,7 +73,7 @@
                                     <button ng-show="listCtrl.filter.category_ids[0]" class="btn btn-danger"
                                             ng-disabled="listCtrl.deleteLoading"
                                             ng-really-message="{{ 'media.delete_before_msg' | translate }}"
-                                            ng-really-click="removeCategory()"><i
+                                            ng-really-click="listCtrl.removeCategory()"><i
                                             class="fa fa-trash-o"></i> Delete {{ selectedCategory.name }} category
                                     </button>
                                 </div>

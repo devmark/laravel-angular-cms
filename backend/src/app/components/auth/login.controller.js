@@ -17,8 +17,7 @@
         var vm = this;
         vm.form = {
             email: '',
-            password: '',
-            remebmer: false
+            password: ''
         };
 
         vm.loading = false;

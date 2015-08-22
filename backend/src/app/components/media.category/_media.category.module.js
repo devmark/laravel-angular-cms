@@ -37,9 +37,5 @@
                 return model;
 
             });
-        })
-
-        .config(function ($stateProvider, $urlRouterProvider) {
-
         });
 })();

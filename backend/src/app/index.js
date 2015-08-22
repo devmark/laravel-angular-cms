@@ -25,26 +25,28 @@
 
         'theme.directives',
         'theme.services',
-
         'global.filter',
         'global.service',
         'global.directive',
 
+
+        //UI Plugin
         'angular-spinkit',
         'smart-table',
-        'restangular',
         'ui.router',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
         'ui.tree',
         'ui.select',
         'checklist-model',
-
         'textAngular',
+        'toaster', //notification plugin
+
+        //Plugin
         'angular.filter',
         'pascalprecht.translate', //Multi Language plugin
         'angularMoment', //moment plugin, date plugin
-        'toaster', //notification plugin
+        'restangular',
         'LocalStorageModule', // local storage module
         'tmh.dynamicLocale',
 
@@ -55,28 +57,6 @@
         'ngSanitize'
 
     ])
-        //================================================
-        // Translate Config
-        //================================================
-        .config(function ($translateProvider) {
-            $translateProvider.useStaticFilesLoader({
-                prefix: 'app/languages/locale-',
-                suffix: '.json'
-            });
-
-            $translateProvider.useCookieStorage();
-            $translateProvider.useSanitizeValueStrategy('sanitize');
-            $translateProvider.preferredLanguage('en-us');
-            $translateProvider.fallbackLanguage(['en-us', 'zh-hk', 'zh-cn']);
-
-        })
-        //================================================
-        // UI select Config
-        //================================================
-        .config(function (uiSelectConfig) {
-            uiSelectConfig.theme = 'bootstrap';
-            uiSelectConfig.resetSearchInput = true;
-        })
         //================================================
         // Check isLogin when run system
         //================================================
@@ -116,19 +96,10 @@
             //================================================
             $rootScope.$location = $location;
 
-
             //================================================
             // timezone init
             //================================================
             amMoment.changeTimezone(settingService.find('timezone'));
-
-            //================================================
-            // currency init
-            //================================================
-            if (!localStorageService.get('currency')) {
-                tmhDynamicLocale.set('zh-hk');
-                localStorageService.set('currency', settingService.get('currency'));
-            }
 
         })
         .run(function ($location, authenticationService, localStorageService, $timeout, Restangular, $http, $q, $state) {
@@ -206,25 +177,41 @@
                     params: params,
                     httpConfig: httpConfig
                 };
-
             });
-
-
         })
-
-
+        //================================================
+        // Local storage module init
+        //================================================
         .config(function ($httpProvider, localStorageServiceProvider) {
-
             $httpProvider.defaults.useXDomain = true;
             delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-            //================================================
-            // Local storage module init
-            //================================================
             localStorageServiceProvider
                 .setPrefix('emcoocms')
                 .setStorageType('localStorage')
                 .setNotify(true, true);
+        })
+        //================================================
+        // Translate Config
+        //================================================
+        .config(function ($translateProvider) {
+            $translateProvider.useStaticFilesLoader({
+                prefix: 'app/languages/locale-',
+                suffix: '.json'
+            });
+
+            $translateProvider.useCookieStorage();
+            $translateProvider.useSanitizeValueStrategy('sanitize');
+            $translateProvider.preferredLanguage('en-us');
+            $translateProvider.fallbackLanguage(['en-us', 'zh-hk', 'zh-cn']);
+
+        })
+        //================================================
+        // UI select Config
+        //================================================
+        .config(function (uiSelectConfig) {
+            uiSelectConfig.theme = 'bootstrap';
+            uiSelectConfig.resetSearchInput = true;
         })
 
         //================================================

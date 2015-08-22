@@ -14,7 +14,7 @@
 
     angular.module('mediaModule').controller('MediaListController', MediaListController);
 
-    function MediaListController($scope, Upload, mediaService, $location, toaster, $timeout, $translate, $q, mediaCategoryService, $state) {
+    function MediaListController($scope, mediaService, $location, toaster, $translate, $q, mediaCategoryService, $state) {
 
         var vm = this;
         //================================================

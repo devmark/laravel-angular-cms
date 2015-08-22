@@ -12,7 +12,7 @@
     'use strict';
 
     angular.module('postModule').controller('PostFormController', PostFormController);
-    function PostFormController($scope, $http, $window, postService, postCategoryService, messageService, moment, angularMomentConfig, toaster, $translate, post, $filter, $location, $timeout, Restangular, $q) {
+    function PostFormController($scope, postService, postCategoryService, messageService, moment, angularMomentConfig, toaster, $translate, post, $location, Restangular, $q) {
 
         var vm = this;
 

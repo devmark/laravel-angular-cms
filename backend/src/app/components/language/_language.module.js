@@ -11,9 +11,5 @@
 (function () {
     'use strict';
 
-    angular.module('languageModule', [])
-        .run(function (Restangular, languageService) {
-
-
-        });
+    angular.module('languageModule', []);
 })();
