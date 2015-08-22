@@ -7,6 +7,7 @@ use Auth;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use App\Models\User;
 use UserAuth;
 
@@ -55,7 +56,7 @@ class UserAuthMiddleware
                     UserAuth::loginUsingId($user->id);
                 }
             } else {
-                throw new JWTException;
+                throw new TokenInvalidException;
             }
         } catch (TokenExpiredException $e) {
             return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
