@@ -7,7 +7,6 @@ use Auth;
 use Tymon\JWTAuth\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-
 use App\Models\User;
 use UserAuth;
 
@@ -35,6 +34,7 @@ class UserAuthMiddleware
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, \Closure $next)
@@ -43,20 +43,24 @@ class UserAuthMiddleware
         if (!$token = $this->jwt->setRequest($request)->getToken()) {
             return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
         }
+
         try {
             $payload = $this->jwt->decode($token);
 
             if ($payload['aud'] == 'user') {
                 $user = User::find($payload['sub']);
-                UserAuth::loginUsingId($user->id);
+                if (is_null($user)) {
+                    return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
+                } else {
+                    UserAuth::loginUsingId($user->id);
+                }
+            } else {
+                throw new JWTException;
             }
         } catch (TokenExpiredException $e) {
             return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
         } catch (JWTException $e) {
             return $this->respond('tymon.jwt.invalid', 'token_invalid', $e->getStatusCode(), [$e]);
-        }
-        if (is_null($user)) {
-            return $this->respond('tymon.jwt.user_not_found', 'user_not_found', 404);
         }
 
         Event::fire('tymon.jwt.valid', $user);
@@ -71,6 +75,7 @@ class UserAuthMiddleware
      * @param  string  $error
      * @param  integer $status
      * @param  array   $payload
+     *
      * @return mixed
      */
     protected function respond($event, $error, $status, $payload = [])
