@@ -87,6 +87,7 @@
             // page route event
             //================================================
             $rootScope.pageViewLoading = false;
+
             $rootScope.$on('$stateChangeStart', function (event, next, current) {
                 if (!_(routesThatRequireAuth).contains($location.path()) && !authenticationService.check()) {
                     console.log('Oops! please login!');
@@ -130,7 +131,7 @@
             }
 
         })
-        .run(function ($location, authenticationService, localStorageService, $timeout, Restangular, $http, $q) {
+        .run(function ($location, authenticationService, localStorageService, $timeout, Restangular, $http, $q, $state) {
 
             var refreshAccessToken = function () {
                 var deferred = $q.defer();
@@ -154,7 +155,13 @@
             };
 
             Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
-                if (response.status === 401 || response.message === 'token_expired') {
+                if (response.data.message === 'token_invalid') {
+                    localStorageService.remove('token');
+                    $state.go('fullscreen.login');
+                    return false;
+                }
+
+                if (response.data.message === 'token_expired') {
                     return refreshAccessToken().then(function () {
                         response.config.headers.Authorization = authenticationService.getToken();
                         // Repeat the request and then call the handlers the usual way.
@@ -162,7 +169,7 @@
                         return false;
                         // Be aware that no request interceptors are called this way.
                     });
-                    return false; // error handled
+                    return false;
                 }
                 console.log('error not handled');
                 return true; // error not handled
