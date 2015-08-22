@@ -70,6 +70,9 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     Route::group(['middleware' => ['before' => 'csrf']], function () {
+
+        Route::get('/media/{type}/{yearAndMonth}/{day}/{filename}', 'Api\MediaController@get');
+
         Route::group(['middleware' => 'App\Http\Middleware\ThrottleMiddleware:600,5', 'prefix' => ''], function () {
         });
     });
