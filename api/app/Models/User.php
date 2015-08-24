@@ -1,5 +1,5 @@
 <?php namespace App\Models;
-
+use Hash;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -19,4 +19,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     protected $hidden = ['password', 'remember_token'];
     public $timestamps = true;
 
+    public function setPasswordAttribute($pass){
+        $this->attributes['password'] = Hash::make($pass);
+    }
 }
