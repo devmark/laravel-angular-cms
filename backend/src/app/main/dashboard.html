@@ -12,13 +12,13 @@
             <h3 class="box-title">Hello, {{ mainCtrl.me.getFullName() }}!</h3>
         </div>
         <div class="box-body">
-            <a class="btn btn-app" ui-sref="main.post-list">
+            <a class="btn btn-app" ui-sref="main.post-list" ng-if="mainCtrl.me.can('post.index')">
                 <i class="fa fa-tag"></i> New Post
             </a>
-            <a class="btn btn-app" ui-sref="main.user-list">
+            <a class="btn btn-app" ui-sref="main.user-list" ng-if="mainCtrl.me.can('user.index')">
                 <i class="fa fa-user"></i> New User
             </a>
-            <a class="btn btn-app" ui-sref="main.media-list">
+            <a class="btn btn-app" ui-sref="main.media-list" ng-if="mainCtrl.me.can('media.index')">
                 <i class="fa fa fa-file-archive-o"></i> New Media
             </a>
         </div>
