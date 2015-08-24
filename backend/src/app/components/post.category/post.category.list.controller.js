@@ -14,7 +14,7 @@
     angular.module('postCategoryModule')
         .controller('PostCategoryListController', PostCategoryListController);
 
-    function PostCategoryListController(postCategoryService, $location, toaster, $timeout, $translate) {
+    function PostCategoryListController(postCategoryService, toaster, $timeout, $translate) {
 
         var vm = this;
         //================================================
@@ -66,7 +66,7 @@
             },
             dragStart: function (event) {
                 var oldParent = event.dest.nodesScope.$parent.$parent.$modelValue;
-                
+
                 //if old parent get only a children, remove the handle tool
                 if (!_.isUndefined(oldParent) && oldParent.children.length === 1) {
                     oldParent.rgt = oldParent.lft + 1;

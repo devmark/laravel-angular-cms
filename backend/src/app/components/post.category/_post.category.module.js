@@ -48,6 +48,20 @@
                     templateUrl: 'app/components/post.category/post.category.list.html',
                     controller: 'PostCategoryListController as listCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('posts.categories.index')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
+                        },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();
                             $translate('post.posts').then(function (translation) {
@@ -65,6 +79,20 @@
                     templateUrl: 'app/components/post.category/post.category.form.html',
                     controller: 'PostCategoryFormController as formCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('posts.categories.store')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
+                        },
                         category: function () {
                             return;
                         },
@@ -85,8 +113,29 @@
                     templateUrl: 'app/components/post.category/post.category.form.html',
                     controller: 'PostCategoryFormController as formCtrl',
                     resolve: {
-                        category: function (postCategoryService, $stateParams) {
-                            return postCategoryService.find($stateParams.id, {cache: false});
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can(['posts.categories.index', 'posts.categories.update'], true)) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
+                        },
+                        category: function (postCategoryService, $stateParams, $q, $state) {
+                            var deferred = $q.defer();
+                            postCategoryService.find($stateParams.id, {cache: false}).then(function (result) {
+                                deferred.resolve(result);
+                            }, function () {
+                                $state.go('main.post-category-list');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
                         },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();

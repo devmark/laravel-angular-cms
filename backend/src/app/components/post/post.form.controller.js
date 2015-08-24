@@ -13,11 +13,10 @@
 
     angular.module('postModule').controller('PostFormController', PostFormController);
     function PostFormController($scope, postService, postCategoryService, messageService, moment, angularMomentConfig, toaster, $translate, post, $location, Restangular, $q) {
-
         var vm = this;
 
         vm.post = (_.isEmpty(post) || _.isUndefined(post)) ? postService.init() : post;
-        console.log(vm.post);
+
         //==========================================
         // Load Data
         //==========================================

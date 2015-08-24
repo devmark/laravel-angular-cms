@@ -44,6 +44,20 @@
                     templateUrl: 'app/components/media/media.list.html',
                     controller: 'MediaListController as listCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('media.index')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();
                             $translate('media.media').then(function (translation) {

@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 use App\Exceptions\EmailOrPasswordIncorrectException;
 use App\Exceptions\ResourceException;
+use App\Exceptions\UnauthorizedException;
 
 class AuthController extends ApiController
 {
@@ -43,6 +44,9 @@ class AuthController extends ApiController
 
         // Try to login
         if (UserAuth::once($credentials)) {
+            if (!UserAuth::user()->can('auth.backend')) {
+                throw new UnauthorizedException('You do not have permission to access.');
+            }
             $payload = app('tymon.jwt.payload.factory')->sub(UserAuth::user()->id)->aud('user')->make();
             $token = JWTAuth::encode($payload);
 

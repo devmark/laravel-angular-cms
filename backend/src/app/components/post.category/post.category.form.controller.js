@@ -12,8 +12,7 @@
 
     angular.module('postCategoryModule').controller('PostCategoryFormController', PostCategoryFormController);
 
-    function PostCategoryFormController($http, $location, postCategoryService, messageService, moment, angularMomentConfig, toaster, $translate, category, $filter, languageService, Restangular) {
-
+    function PostCategoryFormController($location, postCategoryService, messageService, toaster, $translate, category, Restangular) {
 
         var vm = this;
         //==========================================

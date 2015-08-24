@@ -14,6 +14,7 @@
     angular.module('postModule').controller('PostListController', PostListController);
 
     function PostListController(postService, $location, toaster, postCategoryService, $translate, $q, angularMomentConfig) {
+
         var vm = this;
         //==========================================
         // Date & Time picker

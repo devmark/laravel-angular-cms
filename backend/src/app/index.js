@@ -180,6 +180,18 @@
             });
         })
         //================================================
+        // UI router Config
+        //================================================
+        .config(function ($provide) {
+            $provide.decorator('$state', function ($delegate, $rootScope) {
+                $rootScope.$on('$stateChangeStart', function (event, state, params) {
+                    $delegate.next = state;
+                    $delegate.toParams = params;
+                });
+                return $delegate;
+            });
+        })
+        //================================================
         // Local storage module init
         //================================================
         .config(function ($httpProvider, localStorageServiceProvider) {

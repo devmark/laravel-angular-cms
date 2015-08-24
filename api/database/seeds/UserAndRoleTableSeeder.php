@@ -14,7 +14,13 @@ class UserAndRoleTableSeeder extends Seeder
     {
         $ownerRole = Role::create(['name' => 'owner', 'display_name' => 'owner']);
 
+
+
         $allPermissions = [];
+
+        $adminRolePermission = Permission::create(['name' => 'auth.backend', 'display_name' => 'Login to backend']);
+        array_push($allPermissions, $adminRolePermission->id);
+
         $listRolePermission = Permission::create(['name' => 'roles.index', 'display_name' => 'List Roles']);
         $createRolePermission = Permission::create(['name' => 'roles.store', 'display_name' => 'Create Roles']);
         $editRolePermission = Permission::create(['name' => 'roles.update', 'display_name' => 'Edit Roles']);
@@ -54,7 +60,7 @@ class UserAndRoleTableSeeder extends Seeder
 
         $ownerRole->perms()->sync($allPermissions);
 
-        $user = User::create(['firstname' => 'Mark', 'email' => 'admin@emcoo.com', 'password' => Hash::make('adminmark'), 'last_login' => date('Y-m-d H:i:s')]);
+        $user = User::create(['firstname' => 'Mark', 'email' => 'admin@emcoo.com', 'password' => 'adminmark', 'last_login' => date('Y-m-d H:i:s')]);
         $user->attachRole($ownerRole);
 
     }

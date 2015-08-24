@@ -10,10 +10,12 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::post('slug', 'Api\HelperController@slug');
 
+
         //AUTH =================================
-        Route::post('auth/login', 'Api\Backend\AuthController@postLogin');
-        Route::post('auth/logout', 'Api\Backend\AuthController@postLogout');
-        Route::post('auth/refresh-token', 'Api\Backend\AuthController@postRefreshToken');
+
+        Route::post('auth/login', ['uses' => 'Api\Backend\AuthController@postLogin', 'as' => 'auth.login']);
+        Route::post('auth/logout', ['uses' => 'Api\Backend\AuthController@postLogout', 'as' => 'auth.logout']);
+        Route::post('auth/refresh-token', ['uses' => 'Api\Backend\AuthController@postRefreshToken', 'as' => 'auth.refresh']);
 
         Route::group(['middleware' => ['auth.user']], function () {
             Route::get('me', 'Api\Backend\UserController@index');

@@ -69,9 +69,7 @@
 
             }
 
-
             Restangular.extendModel('roles', function (model) {
-
                 model.permissionIds = _.pluck(model.permissions, 'id');
 
                 return model;
@@ -86,6 +84,20 @@
                     templateUrl: 'app/components/user/role.list.html',
                     controller: 'RoleListController as listCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('roles.index')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();
                             $translate('user.roles').then(function (translation) {
@@ -103,6 +115,20 @@
                     templateUrl: 'app/components/user/user.list.html',
                     controller: 'UserListController as listCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('users.index')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();
                             $translate('user.users').then(function (translation) {
@@ -120,6 +146,20 @@
                     templateUrl: 'app/components/user/user.form.html',
                     controller: 'UserFormController as formCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('users.store')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         user: function () {
                             return;
                         },
@@ -140,8 +180,29 @@
                     templateUrl: 'app/components/user/user.form.html',
                     controller: 'UserFormController as formCtrl',
                     resolve: {
-                        user: function (userService, $stateParams) {
-                            return userService.find($stateParams.id, {cache: false});
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can(['users.index', 'users.update'], true)) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
+                        user: function (userService, $stateParams, $q, $state) {
+                            var deferred = $q.defer();
+                            userService.find($stateParams.id, {cache: false}).then(function (result) {
+                                deferred.resolve(result);
+                            }, function () {
+                                $state.go('main.user-list');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
                         },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();

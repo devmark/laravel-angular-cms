@@ -12,7 +12,7 @@
     'use strict';
 
     angular.module('mediaCategoryModule', [])
-        .run(function (Restangular, languageService, $filter, $log) {
+        .run(function (Restangular) {
             //================================================
             // Restangular init
             //================================================
@@ -22,9 +22,7 @@
             Restangular.extendModel('medias', function (model) {
                 model.init = function () {
                     _.extend(model, {
-                        id: '',
-                        status: 'published',
-                        visibility: 'public'
+                        id: ''
                     });
                 };
 

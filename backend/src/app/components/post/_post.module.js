@@ -52,6 +52,20 @@
                     templateUrl: 'app/components/post/post.list.html',
                     controller: 'PostListController as listCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('posts.index')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();
                             $translate('post.posts').then(function (translation) {
@@ -69,6 +83,20 @@
                     templateUrl: 'app/components/post/post.form.html',
                     controller: 'PostFormController as formCtrl',
                     resolve: {
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can('posts.store')) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject(false);
+                            });
+                            return deferred.promise;
+                        },
                         post: function () {
                             return;
                         },
@@ -89,8 +117,29 @@
                     templateUrl: 'app/components/post/post.form.html',
                     controller: 'PostFormController as formCtrl',
                     resolve: {
-                        post: function (postService, $stateParams) {
-                            return postService.find($stateParams.id, {cache: false});
+                        hasPermission: function (userService, $state, $q) {
+                            var deferred = $q.defer();
+                            userService.getMe().then(function (result) {
+                                if (!result.can(['posts.index', 'posts.update'], true)) {
+                                    $state.go('main.index');
+                                    deferred.resolve(false);
+                                }
+                                deferred.resolve(true);
+                            }, function () {
+                                $state.go('main.index');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
+                        },
+                        post: function (postService, $stateParams, $q, $state) {
+                            var deferred = $q.defer();
+                            postService.find($stateParams.id, {cache: false}).then(function (result) {
+                                deferred.resolve(result);
+                            }, function () {
+                                $state.go('main.post-list');
+                                deferred.reject();
+                            });
+                            return deferred.promise;
                         },
                         meta: function ($rootScope, $translate, $q) {
                             var deferred = $q.defer();

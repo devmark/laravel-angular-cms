@@ -14,6 +14,7 @@
     angular.module('userModule').controller('RoleListController', RoleListController);
 
     function RoleListController(userService, roleService, $location, toaster, $translate, $q, angularMomentConfig, permissionService) {
+
         var vm = this;
 
         //==========================================
