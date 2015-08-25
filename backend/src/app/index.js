@@ -60,7 +60,7 @@
         //================================================
         // Check isLogin when run system
         //================================================
-        .run(function ($rootScope, $location, authenticationService, localStorageService, amMoment, tmhDynamicLocale, settingService, $translate, $timeout) {
+        .run(function ($rootScope, $location, authenticationService, localStorageService, amMoment, tmhDynamicLocale, settingService, $translate, $timeout, $cacheFactory) {
             var routesThatRequireAuth = ['/auth/login', '/auth/logout'];
 
             //================================================
@@ -79,6 +79,7 @@
                 $timeout(function () {
                     $rootScope.pageViewLoading = false;
                 }, 500);
+                $cacheFactory.get('$http').removeAll();
             });
 
             //================================================
@@ -182,9 +183,9 @@
         //================================================
         // UI router Config
         //================================================
-        .config(function ($provide) {
-            $provide.decorator('$state', function ($delegate, $rootScope) {
-                $rootScope.$on('$stateChangeStart', function (event, state, params) {
+        .config(function($provide) {
+            $provide.decorator('$state', function($delegate, $rootScope) {
+                $rootScope.$on('$stateChangeStart', function(event, state, params) {
                     $delegate.next = state;
                     $delegate.toParams = params;
                 });
