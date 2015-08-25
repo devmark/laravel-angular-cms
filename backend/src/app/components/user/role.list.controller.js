@@ -111,8 +111,9 @@
                     toaster.pop('error', '', $translate.instant('role.update_error_msg'));
                 });
             } else {
-                roleService.store(data).then(function () {
+                roleService.store(data).then(function (result) {
                     vm.saveLoading[data.id] = false;
+                    vm.rowCollection[index] = result;
                     toaster.pop('success', '', $translate.instant('role.create_success_msg'));
                 }, function (result) {
                     vm.saveLoading[data.id] = false;
