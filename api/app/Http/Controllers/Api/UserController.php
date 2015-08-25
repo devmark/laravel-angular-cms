@@ -81,9 +81,7 @@ class UserController extends ApiController
     {
 
         $user = User::find($id);
-        if (is_null($user)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($user);
 
         return response()->item($user, new UserTransformer);
 
@@ -111,23 +109,9 @@ class UserController extends ApiController
             throw new ResourceException($validator->errors()->first());
         }
         $user = new User;
+        $this->fillFieldFromInput($user, ['active', 'email', 'password']);
+        $this->fillNullableFieldFromInput($user, ['lastname', 'firstname']);
 
-        $fields = ['active', 'email', 'password'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $user->{$field} = Input::get($field);
-            }
-        }
-
-        //field which can null/empty string
-        $fields = ['lastname', 'firstname'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $user->{$field} = null;
-            } elseif (Input::has($field)) {
-                $user->{$field} = Input::get($field);
-            }
-        }
         $user->save();
 
         $user->roles()->sync(Input::get('roles', []));
@@ -159,26 +143,11 @@ class UserController extends ApiController
             throw new ResourceException($validator->errors()->first());
         }
         $user = User::find($id);
-        if (is_null($user)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($user);
 
-        $fields = ['active', 'email', 'password'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $user->{$field} = Input::get($field);
-            }
-        }
+        $this->fillFieldFromInput($user, ['active', 'email', 'password']);
+        $this->fillNullableFieldFromInput($user, ['lastname', 'firstname']);
 
-        //field which can null/empty string
-        $fields = ['lastname', 'firstname'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $user->{$field} = null;
-            } elseif (Input::has($field)) {
-                $user->{$field} = Input::get($field);
-            }
-        }
         $user->save();
 
         if (Input::has('roles')) {
@@ -198,9 +167,7 @@ class UserController extends ApiController
     public function destroy($id)
     {
         $user = User::find($id);
-        if (is_null($user)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($user);
 
         $user->delete();
 

@@ -82,8 +82,6 @@ class MediaController extends ApiController
 
         $this->checkExist($media);
 
-
-
         return response()->item($media, new MediaTransformer);
     }
 
