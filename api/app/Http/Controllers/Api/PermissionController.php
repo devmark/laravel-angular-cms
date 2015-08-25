@@ -47,9 +47,7 @@ class PermissionController extends ApiController
     public function show($id)
     {
         $permission = Permission::find($id);
-        if (is_null($permission)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($permission);
 
         return response()->item($permission, new PermissionTransformer);
 

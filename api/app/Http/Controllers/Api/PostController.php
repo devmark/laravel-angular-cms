@@ -99,9 +99,7 @@ class PostController extends ApiController
     {
         $post = Post::find($id);
 
-        if (is_null($post)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($post);
 
         $post = $post->load([
             'tagged',
@@ -139,22 +137,9 @@ class PostController extends ApiController
         }
         $post = new Post;
 
-        $fields = ['slug', 'status', 'visibility', 'published_at'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $post->{$field} = Input::get($field);
-            }
-        }
+        $this->fillFieldFromInput($post, ['slug', 'status', 'visibility', 'published_at']);
+        $this->fillNullableFieldFromInput($post, ['title', 'content']);
 
-        //field which can null/empty string
-        $fields = ['title', 'content'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $post->{$field} = null;
-            } elseif (Input::has($field)) {
-                $post->{$field} = Input::get($field);
-            }
-        }
         $post->save();
 
         $post->categories()->sync(Input::get('categories', []));
@@ -191,26 +176,10 @@ class PostController extends ApiController
         }
 
         $post = Post::find($id);
-        if (is_null($post)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($post);
+        $this->fillFieldFromInput($post, ['slug', 'status', 'visibility', 'published_at']);
+        $this->fillNullableFieldFromInput($post, ['title', 'content']);
 
-        $fields = ['slug', 'status', 'visibility', 'published_at'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $post->{$field} = Input::get($field);
-            }
-        }
-
-        //field which can null/empty string
-        $fields = ['title', 'content'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $post->{$field} = null;
-            } elseif (Input::has($field)) {
-                $post->{$field} = Input::get($field);
-            }
-        }
 
         $post->save();
 
@@ -232,9 +201,7 @@ class PostController extends ApiController
     public function destroy($id)
     {
         $post = Post::find($id);
-        if (is_null($post)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($post);
 
         $post->delete();
 

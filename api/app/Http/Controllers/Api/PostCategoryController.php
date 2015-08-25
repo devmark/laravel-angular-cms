@@ -86,9 +86,7 @@ class PostCategoryController extends ApiController
     {
         $category = PostCategory::find($id);
 
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
 
         return response()->item($category, new PostCategoryTransformer);
 
@@ -123,22 +121,8 @@ class PostCategoryController extends ApiController
         try {
             $category = new PostCategory;
 
-            $fields = ['active', 'slug'];
-            foreach ($fields as $key => $field) {
-                if (Input::has($field)) {
-                    $category->{$field} = Input::get($field);
-                }
-            }
-
-            //field which can null/empty string
-            $fields = ['description', 'name', 'meta_description', 'meta_title'];
-            foreach ($fields as $key => $field) {
-                if (Input::get($field) === '') {
-                    $category->{$field} = null;
-                } elseif (Input::has($field)) {
-                    $category->{$field} = Input::get($field);
-                }
-            }
+            $this->fillFieldFromInput($category, ['active', 'slug']);
+            $this->fillNullableFieldFromInput($category, ['description', 'name', 'meta_description', 'meta_title']);
 
             $category->save();
 
@@ -189,29 +173,14 @@ class PostCategoryController extends ApiController
         }
 
         $category = PostCategory::find($id);
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
 
         DB::beginTransaction();
         try {
 
-            $fields = ['active', 'slug'];
-            foreach ($fields as $key => $field) {
-                if (Input::has($field)) {
-                    $category->{$field} = Input::get($field);
-                }
-            }
+            $this->fillFieldFromInput($category, ['active', 'slug']);
+            $this->fillNullableFieldFromInput($category, ['description', 'name', 'meta_description', 'meta_title']);
 
-            //field which can null/empty string
-            $fields = ['description', 'name', 'meta_description', 'meta_title'];
-            foreach ($fields as $key => $field) {
-                if (Input::get($field) === '') {
-                    $category->{$field} = null;
-                } elseif (Input::has($field)) {
-                    $category->{$field} = Input::get($field);
-                }
-            }
             $category->save();
 
             if (Input::has('parent_id') && Input::get('parent_id') != $category->parent_id) {
@@ -240,9 +209,7 @@ class PostCategoryController extends ApiController
     public function destroy($id)
     {
         $category = PostCategory::find($id);
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
 
         if ($category->isRoot()) {
             $this->postCategoryPresenter->errorDeleteRoot();

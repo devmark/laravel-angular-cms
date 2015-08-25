@@ -53,9 +53,7 @@ class MediaCategoryController extends ApiController
     public function show($id)
     {
         $category = MediaCategory::find($id);
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
 
         return response()->item($category, new MediaCategoryTransformer);
 
@@ -104,16 +102,12 @@ class MediaCategoryController extends ApiController
             throw new ResourceException($validator->errors()->first());
         }
 
-
         $category = MediaCategory::find($id);
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
         $category->name = Input::get('name');
         $category->save();
 
         return $this->show($category->id);
-
     }
 
     /**
@@ -127,9 +121,7 @@ class MediaCategoryController extends ApiController
     {
         $category = MediaCategory::find($id);
 
-        if (is_null($category)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($category);
 
         $category->delete();
 

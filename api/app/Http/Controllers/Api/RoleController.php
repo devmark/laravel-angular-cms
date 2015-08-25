@@ -93,23 +93,9 @@ class RoleController extends ApiController
             throw new ResourceException($validator->errors()->first());
         }
         $role = new Role;
+        $this->fillFieldFromInput($role, ['name']);
+        $this->fillNullableFieldFromInput($role, ['description', 'display_name']);
 
-        $fields = ['name'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $role->{$field} = Input::get($field);
-            }
-        }
-
-        //field which can null/empty string
-        $fields = ['description', 'display_name'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $role->{$field} = null;
-            } elseif (Input::has($field)) {
-                $role->{$field} = Input::get($field);
-            }
-        }
         $role->save();
 
         $role->perms()->sync(Input::get('permissions', []));
@@ -141,23 +127,10 @@ class RoleController extends ApiController
         }
         $role = Role::find($id);
         $this->checkPoint($role);
+        $this->fillFieldFromInput($role, ['name']);
+        $this->fillNullableFieldFromInput($role, ['description', 'display_name']);
 
-        $fields = ['name'];
-        foreach ($fields as $key => $field) {
-            if (Input::has($field)) {
-                $role->{$field} = Input::get($field);
-            }
-        }
 
-        //field which can null/empty string
-        $fields = ['description', 'display_name'];
-        foreach ($fields as $key => $field) {
-            if (Input::get($field) === '') {
-                $role->{$field} = null;
-            } elseif (Input::has($field)) {
-                $role->{$field} = Input::get($field);
-            }
-        }
         $role->save();
         if (Input::has('permissions')) {
             $role->perms()->sync(Input::get('permissions', []));
@@ -195,9 +168,7 @@ class RoleController extends ApiController
      */
     public function checkPoint($role)
     {
-        if (is_null($role)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($role);
         if ($role->name === 'owner') {
             throw new RestrictToChangeOwnerRoleException;
         }

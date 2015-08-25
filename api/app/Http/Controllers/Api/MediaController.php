@@ -80,9 +80,9 @@ class MediaController extends ApiController
     {
         $media = Media::find($id);
 
-        if (is_null($media)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($media);
+
+
 
         return response()->item($media, new MediaTransformer);
     }
@@ -178,9 +178,7 @@ class MediaController extends ApiController
         }
 
         $media = Media::find($id);
-        if (is_null($media)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($media);
         if (Input::has('media_category_id')) {
             $media->media_category_id = Input::get('media_category_id');
         }
@@ -202,9 +200,7 @@ class MediaController extends ApiController
     public function destroy($id)
     {
         $media = Media::find($id);
-        if (is_null($media)) {
-            throw new NotFoundException;
-        }
+        $this->checkExist($media);
 
         $media->delete();
 
