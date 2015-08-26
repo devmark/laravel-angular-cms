@@ -79,6 +79,7 @@
                 $timeout(function () {
                     $rootScope.pageViewLoading = false;
                 }, 500);
+                // Clear Restangular Cache
                 $cacheFactory.get('$http').removeAll();
             });
 
@@ -183,9 +184,9 @@
         //================================================
         // UI router Config
         //================================================
-        .config(function($provide) {
-            $provide.decorator('$state', function($delegate, $rootScope) {
-                $rootScope.$on('$stateChangeStart', function(event, state, params) {
+        .config(function ($provide) {
+            $provide.decorator('$state', function ($delegate, $rootScope) {
+                $rootScope.$on('$stateChangeStart', function (event, state, params) {
                     $delegate.next = state;
                     $delegate.toParams = params;
                 });
@@ -269,7 +270,8 @@
                 .state('main', {
                     url: '/',
                     abstract: true,
-                    templateUrl: 'app/main/main.html'
+                    templateUrl: 'app/main/main.html',
+                    controller: 'MainController as mainCtrl'
                 })
                 .state('fullscreen', {
                     url: '/',

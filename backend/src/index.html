@@ -21,11 +21,11 @@
     <!-- endinject -->
     <!-- endbuild -->
 </head>
-<body class="skin-black sidebar-mini" ng-controller="MainController as mainCtrl" ng-class="{
-  'sidebar-collapse': !mainCtrl.isOpenSidebar,
-  'fixed' :mainCtrl.isFixedLayout ,
-  'layout-boxed' : mainCtrl.isBoxedLayout,
-  'login-page': mainCtrl.fullscreen
+<body class="skin-black sidebar-mini" ng-controller="ThemeController as themeCtrl" ng-class="{
+  'sidebar-collapse': !themeCtrl.isOpenSidebar,
+  'fixed' :themeCtrl.isFixedLayout ,
+  'layout-boxed' : themeCtrl.isBoxedLayout,
+  'login-page': themeCtrl.fullscreen
   }">
 <toaster-container></toaster-container>
 <!--[if lt IE 10]>
