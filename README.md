@@ -38,7 +38,7 @@
 <a name="step1"></a>
 ### Step 1: Get the code
 
-`https://github.com/devmark/laravel-angular-cms/archive/master.zip`
+[Download Now](https://github.com/devmark/laravel-angular-cms/archive/master.zip) 
 
 -----
 <a name="step2"></a>
@@ -120,8 +120,6 @@ Soon
 ## API Detail:
 
 
-Soon
-
 ### Add Exception
 Add Whatever Exception you want in `api/app/Exceptions`
 
@@ -152,7 +150,29 @@ Output:
 ```
 
 ### Add Transformer
-Soon
+It helps to output good format you need. 
+Add new transformer you want in `api/app/Transformers`
+More details: see [this](http://fractal.thephpleague.com/transformers/) 
+
+```php
+class UserTransformer extends TransformerAbstract
+{
+
+   public function transform(User $item)
+    {
+        return [
+            'id'            => (int)$item->id,
+            'email'         => $item->email,
+            'lastname'      => $item->lastname,
+            'firstname'     => $item->firstname,
+            'phone'         => $item->phone,
+            'active'        => (boolean)$item->active,
+            'created_at'    => $item->created_at,
+            'updated_at'    => $item->updated_at,
+        ];
+    }
+}
+```
 
 ### Config JWT
 Soon
