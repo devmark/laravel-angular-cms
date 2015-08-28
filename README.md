@@ -1,5 +1,10 @@
 # Laravel Angular CMS Starter Site
 
+[![Join the chat at https://gitter.im/devmark/laravel-angular-cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/devmark/laravel-angular-cms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Join the chat at https://gitter.im/devmark/laravel-angular-cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/devmark/laravel-angular-cms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 ![screenshot](https://raw.githubusercontent.com/devmark/laravel-angular-cms/master/screenshot/user-list.png)
 
 ## Features:
@@ -35,7 +40,7 @@
 <a name="step1"></a>
 ### Step 1: Get the code
 
-`https://github.com/devmark/laravel-angular-cms/archive/master.zip`
+[Download Now](https://github.com/devmark/laravel-angular-cms/archive/master.zip) 
 
 -----
 <a name="step2"></a>
@@ -70,8 +75,7 @@ This project makes use of Bower. You must first ensure that Node.js (included in
 1. edit `.env` file set `APP_DEBUG` to `false`
 
 #### Backend
-1. run `gulp` in `backend` directory
-2. copy `backend/dist` all files to `api/public/assets-backend`
+1. run `gulp` in `backend` directory. It will auto copy `backend/dist` all files to `api/public/assets-backend`
 
 #### Frontend
 1. Move all frontend files to `api/public`
@@ -118,8 +122,6 @@ Soon
 ## API Detail:
 
 
-Soon
-
 ### Add Exception
 Add Whatever Exception you want in `api/app/Exceptions`
 
@@ -150,14 +152,34 @@ Output:
 ```
 
 ### Add Transformer
-Soon
+It helps to output good format you need. 
+Add new transformer you want in `api/app/Transformers`
+More details: see [this](http://fractal.thephpleague.com/transformers/) 
+
+```php
+class UserTransformer extends TransformerAbstract
+{
+
+   public function transform(User $item)
+    {
+        return [
+            'id'            => (int)$item->id,
+            'email'         => $item->email,
+            'lastname'      => $item->lastname,
+            'firstname'     => $item->firstname,
+            'phone'         => $item->phone,
+            'active'        => (boolean)$item->active,
+            'created_at'    => $item->created_at,
+            'updated_at'    => $item->updated_at,
+        ];
+    }
+}
+```
 
 ### Config JWT
 Soon
 
 ## Backend Detail:
-1. run `gulp` in `backend` directory
-2. copy `backend/dist` all files to `api/public/assets-backend`
-
+Soon
 ## Frontend Detail:
 1. You can move all frontend file to `api/public`
