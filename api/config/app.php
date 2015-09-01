@@ -145,7 +145,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FractalServiceProvider::class,
         App\Providers\MultiAuthServiceProvider::class,
-
+        App\Providers\ValidationServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',

@@ -1,9 +1,5 @@
 <?php
 
-Validator::resolver(function ($translator, $data, $rules, $messages) {
-    return new App\Validation\CustomValidation($translator, $data, $rules, $messages);
-});
-
 Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'admin'], function () {
