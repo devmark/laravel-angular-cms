@@ -53,7 +53,7 @@ return [
         ],
 
         'mysql' => [
-            'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
+           // 'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'forge'),
